@@ -44,7 +44,7 @@ export default function UpgradeModal({ isOpen, onClose }: UpgradeModalProps) {
                     key: data.key,
                     amount: data.amount,
                     currency: data.currency,
-                    name: "402check",
+                    name: "Check 402",
                     description: "Enterprise Plan Upgrade",
                     order_id: data.id,
                     handler: function (response: any) {

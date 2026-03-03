@@ -7,7 +7,7 @@ Insert the guard script before the closing `</body>` tag:
 
 ```html
 <script 
-  src="https://your-server.com/sdk/402check.js" 
+  src="https://your-server.com/sdk/check402.js" 
   data-api-key="YOUR_API_KEY"
   data-server="https://your-server.com">
 </script>

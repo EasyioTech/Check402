@@ -103,7 +103,7 @@ export default function ProjectDetailPage() {
         );
     }
 
-    const serverUrl = "https://402check.com";
+    const serverUrl = "https://check402.com";
 
     const getFrameworkDocs = () => {
         const apiKey = project.apiKey;
@@ -114,7 +114,7 @@ export default function ProjectDetailPage() {
                 return {
                     title: "Next.js Integration",
                     steps: [
-                        { title: "Include Script", code: `<script src="${origin}/sdk/402check.js" data-api-key="${apiKey}" data-server="${origin}" async></script>`, desc: "Add to your root layout.tsx inside the <head> or <body> tag." },
+                        { title: "Include Script", code: `<script src="${origin}/sdk/check402.js" data-api-key="${apiKey}" data-server="${origin}" async></script>`, desc: "Add to your root layout.tsx inside the <head> or <body> tag." },
                         { title: "Server-side Check", code: `// api/verify.ts\nconst res = await fetch("${origin}/api/check-status?apiKey=${apiKey}");\nconst { blocked } = await res.json();`, desc: "Use this in middleware or server components for robust protection." }
                     ]
                 };
@@ -123,7 +123,7 @@ export default function ProjectDetailPage() {
                 return {
                     title: `${project.framework === 'react' ? 'React' : 'Vue'} Integration`,
                     steps: [
-                        { title: "Add to HTML", code: `<script src="${origin}/sdk/402check.js" data-api-key="${apiKey}" data-server="${origin}"></script>`, desc: "Insert into your index.html before the closing body tag." },
+                        { title: "Add to HTML", code: `<script src="${origin}/sdk/check402.js" data-api-key="${apiKey}" data-server="${origin}"></script>`, desc: "Insert into your index.html before the closing body tag." },
                         { title: "Usage", code: `// The SDK automatically blocks the UI if status is DEFAULTED.\n// No extra code required for basic protection.`, desc: "The script handles everything automatically." }
                     ]
                 };
@@ -131,7 +131,7 @@ export default function ProjectDetailPage() {
                 return {
                     title: "Generic Integration",
                     steps: [
-                        { title: "Script Tag", code: `<script src="${origin}/sdk/402check.js" data-api-key="${apiKey}" data-server="${origin}"></script>`, desc: "Add this to any website to enable payment enforcement." }
+                        { title: "Script Tag", code: `<script src="${origin}/sdk/check402.js" data-api-key="${apiKey}" data-server="${origin}"></script>`, desc: "Add this to any website to enable payment enforcement." }
                     ]
                 };
         }
@@ -140,25 +140,25 @@ export default function ProjectDetailPage() {
     const docs = project ? getFrameworkDocs() : { title: "", steps: [] };
 
     return (
-        <div className="max-w-6xl mx-auto pb-12">
-            <div className="mb-8 border-b border-slate-200 pb-6">
-                <div>
+        <div className="max-w-6xl mx-auto px-1 sm:px-4 pb-12">
+            <div className="mb-6 md:mb-8 border-b border-slate-200 pb-6 pt-2 md:pt-0">
+                <div className="flex flex-col gap-1">
                     <Link
                         href="/dashboard/projects"
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors mb-3"
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors mb-2"
                     >
                         ← Back to Projects
                     </Link>
-                    <div className="flex flex-wrap items-center gap-3 mb-2">
-                        <h1 className="text-3xl font-extrabold text-slate-900">{project?.name || "Loading..."}</h1>
+                    <div className="flex flex-wrap items-center gap-3 mb-1">
+                        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">Check 402 | {project?.name || "Loading..."}</h1>
                         {project?.framework && (
                             <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-slate-100 text-slate-600 border border-slate-200">{project.framework}</span>
                         )}
                     </div>
-                    <p className="text-slate-600 font-medium">Client: {project?.client || ""}</p>
+                    <p className="text-sm sm:text-base text-slate-600 font-medium">Client: {project?.client || ""}</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3 mt-5">
-                    <a href={`${serverUrl}/sdk/402check.js`} download className="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50 font-bold py-2 px-4 rounded-xl transition-all shadow-sm">
+                    <a href={`${serverUrl}/sdk/check402.js`} download className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50 font-bold py-2.5 px-5 rounded-xl transition-all shadow-sm">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
                         Download SDK
                     </a>

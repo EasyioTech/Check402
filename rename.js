@@ -7,10 +7,10 @@ function replaceInFile(filePath) {
     let content = fs.readFileSync(filePath, 'utf8');
     let original = content;
 
-    content = content.replace(/PayGuard/g, '402check');
-    content = content.replace(/payguard/g, '402check');
-    content = content.replace(/PAYGUARD/g, '402CHECK');
-    content = content.replace(/payment-guard/g, '402check');
+    content = content.replace(/PayGuard/g, 'check402');
+    content = content.replace(/payguard/g, 'check402');
+    content = content.replace(/PAYGUARD/g, 'check402');
+    content = content.replace(/payment-guard/g, 'check402');
 
     if (content !== original) {
         fs.writeFileSync(filePath, content);

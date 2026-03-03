@@ -108,11 +108,11 @@ function LoginForm() {
 
 export default function LoginPage() {
     return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 selection:bg-teal-100 selection:text-teal-900 pb-20">
-            <Link href="/" className="absolute top-8 left-8 flex items-center gap-2 group">
-                <img src="/logo.png" alt="402check" className="h-8 w-auto group-hover:opacity-80 transition-opacity" />
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 selection:bg-teal-100 selection:text-teal-900 pb-10">
+            <Link href="/" className="fixed top-6 left-6 flex items-center gap-2 group z-50">
+                <img src="/logo.png" alt="check402" className="h-7 w-auto group-hover:opacity-80 transition-opacity" />
                 <span className="text-xl font-extrabold tracking-tight">
-                    <span className="text-teal-500">402</span><span className="text-slate-900">check</span>
+                    <span className="text-teal-500 font-sans">Check</span> <span className="text-slate-900">402</span>
                 </span>
             </Link>
 

@@ -139,7 +139,7 @@ export default function CreateProjectModal({ isOpen, onClose, onSuccess }: Creat
                             </h2>
                             <p className="text-slate-500 font-medium">
                                 {step === 0
-                                    ? "Protect your work with 402check enforcement."
+                                    ? "Protect your work with Check 402 enforcement."
                                     : "Please review the enforcement terms below."}
                             </p>
                         </div>
@@ -231,7 +231,7 @@ export default function CreateProjectModal({ isOpen, onClose, onSuccess }: Creat
                                             </div>
                                             <div className="space-y-3">
                                                 <blockquote className="text-sm font-bold text-slate-700 leading-relaxed italic">
-                                                    "check402 is an enforcement tool. You must ensure your client contracts legally permit you to suspend their website for non-payment. check402.com acts only as the infrastructure provider and accepts zero liability for any damages, disputes, or legal action arising between you and your client."
+                                                    "Check 402 is an enforcement tool. You must ensure your client contracts legally permit you to suspend their website for non-payment. check402.com acts only as the infrastructure provider and accepts zero liability for any damages, disputes, or legal action arising between you and your client."
                                                 </blockquote>
                                                 <Link
                                                     href="/terms"

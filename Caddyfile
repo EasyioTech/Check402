@@ -1,0 +1,12 @@
+check402.com {
+    reverse_proxy web:3000
+    
+    header {
+        # Enable HSTS
+        Strict-Transport-Security "max-age=31536000;"
+        # Other security headers
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy no-referrer-when-downgrade
+    }
+}

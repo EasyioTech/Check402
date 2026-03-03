@@ -40,7 +40,7 @@ export default function DocsPage() {
             <div className="mb-8 border-b border-slate-200 pb-6">
                 <div>
                     <h1 className="text-3xl font-extrabold text-slate-900 mb-2">Documentation</h1>
-                    <p className="text-lg text-slate-500 font-medium">Learn how to integrate 402check into your client web apps</p>
+                    <p className="text-lg text-slate-500 font-medium">Learn how to integrate check402 into your client web apps</p>
                 </div>
             </div>
 
@@ -68,9 +68,9 @@ export default function DocsPage() {
                 <div className="flex-1 min-w-0 pb-24">
                     {activeTab === "overview" && (
                         <div className="space-y-8 animate-in fade-in duration-300">
-                            <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-2">What is 402check?</h2>
+                            <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-2">What is check402?</h2>
                             <p className="text-slate-600 leading-relaxed">
-                                402check is a payment confirmation system that lets you control access to your
+                                check402 is a payment confirmation system that lets you control access to your
                                 client web app projects based on their payment status. When a client&apos;s payment
                                 is overdue, their web application is automatically blocked with a professional
                                 &ldquo;Payment Required&rdquo; page.
@@ -114,14 +114,14 @@ export default function DocsPage() {
                                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 text-slate-500 font-bold text-sm shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">2</div>
                                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
                                         <strong className="block text-slate-900 font-bold mb-1">Embed Script</strong>
-                                        <p className="text-slate-600 text-sm">Add the 402check script tag to your client&apos;s web app with their API key.</p>
+                                        <p className="text-slate-600 text-sm">Add the check402 script tag to your client&apos;s web app with their API key.</p>
                                     </div>
                                 </div>
                                 <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 text-slate-500 font-bold text-sm shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">3</div>
                                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
                                         <strong className="block text-slate-900 font-bold mb-1">Automatic Check</strong>
-                                        <p className="text-slate-600 text-sm">On every page load, the script calls the 402check API to verify payment status.</p>
+                                        <p className="text-slate-600 text-sm">On every page load, the script calls the check402 API to verify payment status.</p>
                                     </div>
                                 </div>
                                 <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
@@ -153,7 +153,7 @@ Response (200):
                             <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 my-8">
                                 <strong className="flex items-center gap-2 text-amber-900 font-bold mb-2">Fail-Open Design</strong>
                                 <p className="text-amber-800 text-sm leading-relaxed mb-0">
-                                    If the 402check server is unreachable (network error, server down), the client
+                                    If the check402 server is unreachable (network error, server down), the client
                                     app will <strong className="font-bold">continue working normally</strong>. This prevents false blocks
                                     due to infrastructure issues.
                                 </p>
@@ -181,8 +181,8 @@ Response (200):
   <meta charset="UTF-8">
   <title>My Client App</title>
   
-  <!-- 402check: Add this BEFORE other scripts -->
-  <script src="${serverUrl}/sdk/402check.js" 
+  <!-- check402: Add this BEFORE other scripts -->
+  <script src="${serverUrl}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${serverUrl}">
   </script>
@@ -227,9 +227,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* 402check Payment Check */}
+        {/* check402 Payment Check */}
         <Script 
-          src="${serverUrl}/sdk/402check.js"
+          src="${serverUrl}/sdk/check402.js"
           data-api-key="YOUR_API_KEY"
           data-server="${serverUrl}"
           strategy="beforeInteractive"
@@ -254,7 +254,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Script 
-        src="${serverUrl}/sdk/402check.js"
+        src="${serverUrl}/sdk/check402.js"
         data-api-key="YOUR_API_KEY"
         data-server="${serverUrl}"
         strategy="beforeInteractive"
@@ -273,8 +273,8 @@ export default function App({ Component, pageProps }: AppProps) {
                                 id="nextjs-env"
                                 language="bash"
                                 code={`# .env.local
-NEXT_PUBLIC_402CHECK_KEY=YOUR_API_KEY
-NEXT_PUBLIC_402CHECK_SERVER=${serverUrl}`}
+NEXT_PUBLIC_check402_KEY=YOUR_API_KEY
+NEXT_PUBLIC_check402_SERVER=${serverUrl}`}
                                 onCopy={copyCode}
                                 copied={copiedId}
                             />
@@ -282,9 +282,9 @@ NEXT_PUBLIC_402CHECK_SERVER=${serverUrl}`}
                                 id="nextjs-env-usage"
                                 language="tsx"
                                 code={`<Script 
-  src={\`\${process.env.NEXT_PUBLIC_402CHECK_SERVER}/sdk/402check.js\`}
-  data-api-key={process.env.NEXT_PUBLIC_402CHECK_KEY}
-  data-server={process.env.NEXT_PUBLIC_402CHECK_SERVER}
+  src={\`\${process.env.NEXT_PUBLIC_check402_SERVER}/sdk/check402.js\`}
+  data-api-key={process.env.NEXT_PUBLIC_check402_KEY}
+  data-server={process.env.NEXT_PUBLIC_check402_SERVER}
   strategy="beforeInteractive"
 />`}
                                 onCopy={copyCode}
@@ -317,8 +317,8 @@ NEXT_PUBLIC_402CHECK_SERVER=${serverUrl}`}
   <meta charset="UTF-8" />
   <title>My React App</title>
 
-  <!-- 402check: Add BEFORE the root div -->
-  <script src="${serverUrl}/sdk/402check.js" 
+  <!-- check402: Add BEFORE the root div -->
+  <script src="${serverUrl}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${serverUrl}">
   </script>
@@ -343,7 +343,7 @@ import { useEffect } from "react";
 function App() {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "${serverUrl}/sdk/402check.js";
+    script.src = "${serverUrl}/sdk/check402.js";
     script.setAttribute("data-api-key", "YOUR_API_KEY");
     script.setAttribute("data-server", "${serverUrl}");
     document.head.appendChild(script);
@@ -390,8 +390,8 @@ export default App;`}
   <meta charset="UTF-8" />
   <title>My Vue App</title>
 
-  <!-- 402check -->
-  <script src="${serverUrl}/sdk/402check.js" 
+  <!-- check402 -->
+  <script src="${serverUrl}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${serverUrl}">
   </script>
@@ -410,13 +410,13 @@ export default App;`}
                             <CodeBlock
                                 id="vue-plugin"
                                 language="typescript"
-                                code={`// src/plugins/402check.ts
+                                code={`// src/plugins/check402.ts
 import type { Plugin } from "vue";
 
 export const Check402Plugin: Plugin = {
   install() {
     const script = document.createElement("script");
-    script.src = "${serverUrl}/sdk/402check.js";
+    script.src = "${serverUrl}/sdk/check402.js";
     script.setAttribute("data-api-key", "YOUR_API_KEY");
     script.setAttribute("data-server", "${serverUrl}");
     document.head.appendChild(script);
@@ -426,7 +426,7 @@ export const Check402Plugin: Plugin = {
 // src/main.ts
 import { createApp } from "vue";
 import App from "./App.vue";
-import { Check402Plugin } from "./plugins/402check";
+import { Check402Plugin } from "./plugins/check402";
 
 const app = createApp(App);
 app.use(Check402Plugin);
@@ -454,8 +454,8 @@ app.mount("#app");`}
   <title>My Angular App</title>
   <base href="/">
 
-  <!-- 402check -->
-  <script src="${serverUrl}/sdk/402check.js" 
+  <!-- check402 -->
+  <script src="${serverUrl}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${serverUrl}">
   </script>
@@ -473,7 +473,7 @@ app.mount("#app");`}
                             <CodeBlock
                                 id="angular-service"
                                 language="typescript"
-                                code={`// src/app/services/402check.service.ts
+                                code={`// src/app/services/check402.service.ts
 import { Injectable } from "@angular/core";
 
 @Injectable({ providedIn: "root" })
@@ -481,7 +481,7 @@ export class Check402Service {
   init(): Promise<void> {
     return new Promise((resolve) => {
       const script = document.createElement("script");
-      script.src = "${serverUrl}/sdk/402check.js";
+      script.src = "${serverUrl}/sdk/check402.js";
       script.setAttribute("data-api-key", "YOUR_API_KEY");
       script.setAttribute("data-server", "${serverUrl}");
       script.onload = () => resolve();
@@ -493,7 +493,7 @@ export class Check402Service {
 
 // src/app/app.config.ts
 import { ApplicationConfig, APP_INITIALIZER } from "@angular/core";
-import { Check402Service } from "./services/402check.service";
+import { Check402Service } from "./services/check402.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -529,9 +529,9 @@ export const appConfig: ApplicationConfig = {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}</title>
 
-    <!-- 402check -->
-    <script src="${serverUrl}/sdk/402check.js" 
-      data-api-key="{{ config('services.402check.key') }}"
+    <!-- check402 -->
+    <script src="${serverUrl}/sdk/check402.js" 
+      data-api-key="{{ config('services.check402.key') }}"
       data-server="${serverUrl}">
     </script>
 
@@ -555,7 +555,7 @@ CHECK402_API_KEY=YOUR_API_KEY
 // config/services.php
 return [
     // ... other services
-    '402check' => [
+    'check402' => [
         'key' => env('CHECK402_API_KEY'),
     ],
 ];`}
@@ -575,9 +575,9 @@ return [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 402check: BEFORE Inertia scripts -->
-    <script src="${serverUrl}/sdk/402check.js" 
-      data-api-key="{{ config('services.402check.key') }}"
+    <!-- check402: BEFORE Inertia scripts -->
+    <script src="${serverUrl}/sdk/check402.js" 
+      data-api-key="{{ config('services.check402.key') }}"
       data-server="${serverUrl}">
     </script>
 
@@ -611,9 +611,9 @@ class Check402
 {
     public function handle(Request $request, Closure $next)
     {
-        $status = Cache::remember('402check_status', 300, function () {
+        $status = Cache::remember('check402_status', 300, function () {
             $response = Http::timeout(5)->get('${serverUrl}/api/check-status', [
-                'key' => config('services.402check.key'),
+                'key' => config('services.check402.key'),
             ]);
             return $response->ok() ? $response->json('status') : 'COMPLETED';
         });
@@ -656,8 +656,8 @@ class Check402
     <meta charset="UTF-8">
     <title>{% block title %}My App{% endblock %}</title>
 
-    <!-- 402check -->
-    <script src="${serverUrl}/sdk/402check.js" 
+    <!-- check402 -->
+    <script src="${serverUrl}/sdk/check402.js" 
       data-api-key="{{ CHECK402_API_KEY }}"
       data-server="${serverUrl}">
     </script>
@@ -674,7 +674,7 @@ class Check402
                             <CodeBlock
                                 id="django-middleware"
                                 language="python"
-                                code={`# middleware/402check.py
+                                code={`# middleware/check402.py
 import requests
 from django.conf import settings
 from django.core.cache import cache
@@ -686,7 +686,7 @@ class Check402Middleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        status = cache.get("402check_status")
+        status = cache.get("check402_status")
         
         if status is None:
             try:
@@ -698,7 +698,7 @@ class Check402Middleware:
                 status = resp.json().get("status", "COMPLETED")
             except Exception:
                 status = "COMPLETED"  # Fail open
-            cache.set("402check_status", status, 300)
+            cache.set("check402_status", status, 300)
 
         if status == "DEFAULTED":
             html = render_to_string("payment_required.html")
@@ -709,7 +709,7 @@ class Check402Middleware:
 # settings.py
 CHECK402_API_KEY = os.environ.get("CHECK402_API_KEY", "")
 MIDDLEWARE = [
-    "middleware.402check.Check402Middleware",
+    "middleware.check402.Check402Middleware",
     # ... other middleware
 ]`}
                                 onCopy={copyCode}
@@ -736,8 +736,8 @@ MIDDLEWARE = [
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <!-- 402check -->
-  <script src="${serverUrl}/sdk/402check.js" 
+  <!-- check402 -->
+  <script src="${serverUrl}/sdk/check402.js" 
     data-api-key="<%= ENV['CHECK402_API_KEY'] %>"
     data-server="${serverUrl}">
   </script>
@@ -818,22 +818,22 @@ config.middleware.insert_before 0, Check402`}
 
 function check402_enqueue_script() {
     wp_enqueue_script(
-        '402check',
-        '${serverUrl}/sdk/402check.js',
+        'check402',
+        '${serverUrl}/sdk/check402.js',
         array(),
         null,
         false // Load in <head>, not footer
     );
     
     // Add data attributes
-    wp_script_add_data('402check', 'data-api-key', 'YOUR_API_KEY');
+    wp_script_add_data('check402', 'data-api-key', 'YOUR_API_KEY');
 }
 add_action('wp_enqueue_scripts', 'check402_enqueue_script');
 
 // Since wp_enqueue_script doesn't support data- attributes,
 // use script_loader_tag filter:
 function check402_add_attributes($tag, $handle) {
-    if ($handle !== '402check') return $tag;
+    if ($handle !== 'check402') return $tag;
     
     return str_replace(
         '<script ',
@@ -853,7 +853,7 @@ add_filter('script_loader_tag', 'check402_add_attributes', 10, 2);`}
                                 language="php"
                                 code={`<?php // header.php — add inside <head> ?>
 
-<script src="${serverUrl}/sdk/402check.js" 
+<script src="${serverUrl}/sdk/check402.js" 
   data-api-key="YOUR_API_KEY"
   data-server="${serverUrl}">
 </script>`}

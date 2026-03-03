@@ -3,14 +3,14 @@
 To protect your Next.js application, follow these steps:
 
 ### 1. Install the SDK
-Copy the `402check.js` file to your `public/sdk/` directory.
+Copy the `check402.js` file to your `public/sdk/` directory.
 
 ### 2. Add the Guard Script
 Add the following script to your root layout (`app/layout.tsx` or `pages/_document.tsx`):
 
 ```html
 <script 
-  src="https://your-server.com/sdk/402check.js" 
+  src="https://your-server.com/sdk/check402.js" 
   data-api-key="YOUR_API_KEY"
   data-server="https://your-server.com"
   async>

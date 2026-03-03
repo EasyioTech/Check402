@@ -60,9 +60,9 @@ export default function DocsPage() {
             <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-200" : "bg-white/80 backdrop-blur-md border-b border-slate-200"}`}>
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 group">
-                        <img src="/logo.png" alt="402check" className="h-6 w-auto group-hover:opacity-80 transition-opacity" />
+                        <img src="/logo.png" alt="check402" className="h-6 w-auto group-hover:opacity-80 transition-opacity" />
                         <span className="text-lg font-extrabold tracking-tight">
-                            <span className="text-teal-500">402</span><span className="text-slate-900">check</span>
+                            <span className="text-teal-500">Check</span> <span className="text-slate-900">402</span>
                         </span>
                     </Link>
                     <div className="hidden md:flex items-center gap-8">
@@ -136,17 +136,17 @@ function Callout({ type, title, children }: { type: 'info' | 'warning' | 'succes
 function Overview({ server, copiedId, copy }: GuideProps) {
     return (
         <>
-            <h1>402check Documentation</h1>
+            <h1>Check 402 Documentation</h1>
             <p className="text-lg text-slate-500 font-medium lead">
-                Learn how to integrate 402check into your client web applications.
-                402check is a payment enforcement system that blocks access to web apps
+                Learn how to integrate Check 402 into your client web applications.
+                Check 402 is a payment enforcement system that blocks access to web apps
                 when payment is overdue.
             </p>
 
             <h2>How It Works</h2>
             <p>
                 Each project gets a unique API key. Your client's web app includes a
-                lightweight script that calls the 402check API on every page load. If the
+                lightweight script that calls the Check 402 API on every page load. If the
                 payment status is <code>DEFAULTED</code>, the page is replaced with a
                 "Payment Required" notice.
             </p>
@@ -179,12 +179,12 @@ Response (200 OK):
 }`} />
 
             <Callout type="info" title="Fail-Open Design">
-                <p>If 402check is unreachable, client apps continue working. No false blocks from server issues.</p>
+                <p>If Check 402 is unreachable, client apps continue working. No false blocks from server issues.</p>
             </Callout>
 
             <h2>Quick Start</h2>
             <p>The fastest integration — add one script tag to any HTML page:</p>
-            <CodeBlock id="quick-start" lang="html" copiedId={copiedId} onCopy={copy} code={`<script src="${server}/sdk/402check.js" 
+            <CodeBlock id="quick-start" lang="html" copiedId={copiedId} onCopy={copy} code={`<script src="${server}/sdk/check402.js" 
   data-api-key="YOUR_API_KEY"
   data-server="${server}">
 </script>`} />
@@ -209,8 +209,8 @@ function HtmlGuide({ server, copiedId, copy }: GuideProps) {
   <meta charset="UTF-8">
   <title>My Client App</title>
   
-  <!-- 402check -->
-  <script src="${server}/sdk/402check.js" 
+  <!-- Check 402 -->
+  <script src="${server}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${server}">
   </script>
@@ -242,7 +242,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Script 
-          src="${server}/sdk/402check.js"
+          src="${server}/sdk/check402.js"
           data-api-key="YOUR_API_KEY"
           data-server="${server}"
           strategy="beforeInteractive"
@@ -262,7 +262,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Script 
-        src="${server}/sdk/402check.js"
+        src="${server}/sdk/check402.js"
         data-api-key="YOUR_API_KEY"
         data-server="${server}"
         strategy="beforeInteractive"
@@ -274,8 +274,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
             <h2>Environment Variables (Optional)</h2>
             <CodeBlock id="nx-env" lang="bash" copiedId={copiedId} onCopy={copy} code={`# .env.local
-NEXT_PUBLIC_402CHECK_KEY=YOUR_API_KEY
-NEXT_PUBLIC_402CHECK_SERVER=${server}`} />
+NEXT_PUBLIC_CHECK402_KEY=YOUR_API_KEY
+NEXT_PUBLIC_CHECK402_SERVER=${server}`} />
 
             <Callout type="info" title="Why beforeInteractive?">
                 <p>Using <code>strategy="beforeInteractive"</code> ensures the payment check runs before React hydrates, so the block page appears instantly without layout shift.</p>
@@ -294,7 +294,7 @@ function ReactGuide({ server, copiedId, copy }: GuideProps) {
             <p>Add the script tag directly to your main HTML file so it blocks rendering before React loads.</p>
             <CodeBlock id="react-html" lang="html" copiedId={copiedId} onCopy={copy} code={`<!-- index.html (Vite) or public/index.html (CRA) -->
 <head>
-  <script src="${server}/sdk/402check.js" 
+  <script src="${server}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${server}">
   </script>
@@ -308,7 +308,7 @@ import { useEffect } from "react";
 function App() {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "${server}/sdk/402check.js";
+    script.src = "${server}/sdk/check402.js";
     script.setAttribute("data-api-key", "YOUR_API_KEY");
     script.setAttribute("data-server", "${server}");
     document.head.appendChild(script);
@@ -335,7 +335,7 @@ function VueGuide({ server, copiedId, copy }: GuideProps) {
             <h2>Add to <code>index.html</code></h2>
             <p>This is the simplest way to add the guard to a Vue SPA.</p>
             <CodeBlock id="vue-html" lang="html" copiedId={copiedId} onCopy={copy} code={`<head>
-  <script src="${server}/sdk/402check.js" 
+  <script src="${server}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${server}">
   </script>
@@ -343,13 +343,13 @@ function VueGuide({ server, copiedId, copy }: GuideProps) {
 
             <h2>Vue Plugin (Alternative)</h2>
             <p>If you want to manage the implementation via a strict Vue Plugin.</p>
-            <CodeBlock id="vue-plugin" lang="typescript" copiedId={copiedId} onCopy={copy} code={`// src/plugins/402check.ts
+            <CodeBlock id="vue-plugin" lang="typescript" copiedId={copiedId} onCopy={copy} code={`// src/plugins/Check 402.ts
 import type { Plugin } from "vue";
 
 export const Check402Plugin: Plugin = {
   install() {
     const s = document.createElement("script");
-    s.src = "${server}/sdk/402check.js";
+    s.src = "${server}/sdk/check402.js";
     s.setAttribute("data-api-key", "YOUR_API_KEY");
     s.setAttribute("data-server", "${server}");
     document.head.appendChild(s);
@@ -357,7 +357,7 @@ export const Check402Plugin: Plugin = {
 };
 
 // src/main.ts
-import { Check402Plugin } from "./plugins/402check";
+import { Check402Plugin } from "./plugins/Check 402";
 app.use(Check402Plugin);`} />
         </>
     );
@@ -371,7 +371,7 @@ function AngularGuide({ server, copiedId, copy }: GuideProps) {
 
             <h2>Add to <code>src/index.html</code></h2>
             <CodeBlock id="ng-html" lang="html" copiedId={copiedId} onCopy={copy} code={`<head>
-  <script src="${server}/sdk/402check.js" 
+  <script src="${server}/sdk/check402.js" 
     data-api-key="YOUR_API_KEY"
     data-server="${server}">
   </script>
@@ -379,7 +379,7 @@ function AngularGuide({ server, copiedId, copy }: GuideProps) {
 
             <h2>APP_INITIALIZER Service</h2>
             <p>If you prefer native Angular service initialization.</p>
-            <CodeBlock id="ng-svc" lang="typescript" copiedId={copiedId} onCopy={copy} code={`// 402check.service.ts
+            <CodeBlock id="ng-svc" lang="typescript" copiedId={copiedId} onCopy={copy} code={`// Check 402.service.ts
 import { Injectable } from "@angular/core";
 
 @Injectable({ providedIn: "root" })
@@ -387,7 +387,7 @@ export class Check402Service {
   init(): Promise<void> {
     return new Promise((resolve) => {
       const s = document.createElement("script");
-      s.src = "${server}/sdk/402check.js";
+      s.src = "${server}/sdk/check402.js";
       s.setAttribute("data-api-key", "YOUR_API_KEY");
       s.setAttribute("data-server", "${server}");
       s.onload = () => resolve();
@@ -399,7 +399,7 @@ export class Check402Service {
 
 // app.config.ts
 import { APP_INITIALIZER } from "@angular/core";
-import { Check402Service } from "./402check.service";
+import { Check402Service } from "./Check 402.service";
 
 providers: [{
   provide: APP_INITIALIZER,
@@ -421,8 +421,8 @@ function LaravelGuide({ server, copiedId, copy }: GuideProps) {
             <p>Insert the script into the main app layout so it applies to all pages.</p>
             <CodeBlock id="lv-blade" lang="php" copiedId={copiedId} onCopy={copy} code={`{{-- resources/views/layouts/app.blade.php --}}
 <head>
-    <script src="${server}/sdk/402check.js" 
-      data-api-key="{{ config('services.402check.key') }}"
+    <script src="${server}/sdk/check402.js" 
+      data-api-key="{{ config('services.Check 402.key') }}"
       data-server="${server}">
     </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -433,7 +433,7 @@ function LaravelGuide({ server, copiedId, copy }: GuideProps) {
 CHECK402_API_KEY=YOUR_API_KEY
 
 // config/services.php
-'402check' => ['key' => env('CHECK402_API_KEY')]`} />
+'Check 402' => ['key' => env('CHECK402_API_KEY')]`} />
 
             <h2>Server-Side Middleware (Recommended)</h2>
             <p>For absolute security, you can block the request at the server level so the page HTML never even renders.</p>
@@ -450,9 +450,9 @@ class Check402
 {
     public function handle(Request $request, Closure $next)
     {
-        $status = Cache::remember('402check_status', 300, function () {
+        $status = Cache::remember('Check 402_status', 300, function () {
             $resp = Http::timeout(5)->get('${server}/api/check-status', [
-                'key' => config('services.402check.key'),
+                'key' => config('services.Check 402.key'),
             ]);
             return $resp->ok() ? $resp->json('status') : 'COMPLETED';
         });
@@ -481,7 +481,7 @@ function DjangoGuide({ server, copiedId, copy }: GuideProps) {
             <h2>Base Template</h2>
             <CodeBlock id="dj-tpl" lang="html" copiedId={copiedId} onCopy={copy} code={`{# templates/base.html #}
 <head>
-    <script src="${server}/sdk/402check.js" 
+    <script src="${server}/sdk/check402.js" 
       data-api-key="{{ settings.CHECK402_API_KEY }}"
       data-server="${server}">
     </script>
@@ -489,7 +489,7 @@ function DjangoGuide({ server, copiedId, copy }: GuideProps) {
 
             <h2>Django Middleware</h2>
             <p>Block access server-side in Django using middleware.</p>
-            <CodeBlock id="dj-mid" lang="python" copiedId={copiedId} onCopy={copy} code={`# middleware/check402.py
+            <CodeBlock id="dj-mid" lang="python" copiedId={copiedId} onCopy={copy} code={`# middleware/Check 402.py
 import requests
 from django.conf import settings
 from django.core.cache import cache
@@ -500,7 +500,7 @@ class Check402Middleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        status = cache.get("402check_status")
+        status = cache.get("Check 402_status")
         if status is None:
             try:
                 resp = requests.get(
@@ -511,7 +511,7 @@ class Check402Middleware:
                 status = resp.json().get("status", "COMPLETED")
             except Exception:
                 status = "COMPLETED"
-            cache.set("402check_status", status, 300)
+            cache.set("Check 402_status", status, 300)
 
         if status == "DEFAULTED":
             return HttpResponse("Payment Required", status=402)
@@ -520,7 +520,7 @@ class Check402Middleware:
 # settings.py
 CHECK402_API_KEY = os.environ.get("CHECK402_API_KEY")
 MIDDLEWARE = [
-    "middleware.check402.Check402Middleware", 
+    "middleware.Check 402.Check402Middleware", 
     ...
 ]`} />
         </>
@@ -536,7 +536,7 @@ function RailsGuide({ server, copiedId, copy }: GuideProps) {
             <h2>Application Layout</h2>
             <CodeBlock id="rb-layout" lang="erb" copiedId={copiedId} onCopy={copy} code={`<%# app/views/layouts/application.html.erb %>
 <head>
-  <script src="${server}/sdk/402check.js" 
+  <script src="${server}/sdk/check402.js" 
     data-api-key="<%= ENV['CHECK402_API_KEY'] %>"
     data-server="${server}">
   </script>
@@ -593,12 +593,12 @@ function WordPressGuide({ server, copiedId, copy }: GuideProps) {
 // functions.php
 
 function check402_enqueue() {
-    wp_enqueue_script('402check', '${server}/sdk/402check.js', [], null, false);
+    wp_enqueue_script('Check 402', '${server}/sdk/check402.js', [], null, false);
 }
 add_action('wp_enqueue_scripts', 'check402_enqueue');
 
 function check402_attrs($tag, $handle) {
-    if ($handle !== '402check') return $tag;
+    if ($handle !== 'Check 402') return $tag;
     return str_replace(
         '<script ',
         '<script data-api-key="YOUR_API_KEY" data-server="${server}" ',
@@ -610,7 +610,7 @@ add_filter('script_loader_tag', 'check402_attrs', 10, 2);`} />
             <h2>Header.php Override</h2>
             <p>Alternatively, paste the script into the `&lt;head&gt;` section.</p>
             <CodeBlock id="wp-header" lang="php" copiedId={copiedId} onCopy={copy} code={`<?php // In root header.php, inside <head> ?>
-<script src="${server}/sdk/402check.js" 
+<script src="${server}/sdk/check402.js" 
   data-api-key="YOUR_API_KEY"
   data-server="${server}">
 </script>`} />

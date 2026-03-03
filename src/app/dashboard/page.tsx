@@ -83,7 +83,7 @@ export default function DashboardOverview() {
                     key: data.key,
                     amount: data.amount,
                     currency: data.currency,
-                    name: "402check",
+                    name: "Check 402",
                     description: "Enterprise Plan Upgrade",
                     order_id: data.id,
                     handler: function (response: any) {
@@ -125,23 +125,23 @@ export default function DashboardOverview() {
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             {/* Header */}
-            <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Dashboard overview</h1>
-                    <p className="text-slate-500 font-medium mt-1">Monitor your client payment statuses at a glance.</p>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Dashboard overview</h1>
+                    <p className="text-sm sm:text-base text-slate-500 font-medium mt-1">Monitor your client payment statuses at a glance.</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     {isDeveloper && (
-                        <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 py-1.5 px-3 rounded-lg shadow-sm">
-                            <div className="text-sm font-semibold text-slate-500">
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-slate-50 border border-slate-200 p-2 sm:py-1.5 sm:px-3 rounded-xl shadow-sm">
+                            <div className="text-sm font-semibold text-slate-500 text-center sm:text-left px-2">
                                 <span className={projectLimitReached ? "text-red-500" : "text-slate-900"}>{projects.length}</span> / 2 Projects
                             </div>
                             <button
                                 onClick={() => window.dispatchEvent(new CustomEvent("open-upgrade-modal"))}
-                                className="flex items-center gap-2 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-md shadow-sm transition-all shadow-slate-900/10"
+                                className="flex items-center justify-center gap-2 px-3 py-2 sm:py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg shadow-sm transition-all shadow-slate-900/10"
                             >
                                 <Rocket size={14} />
-                                Upgrade to unlock ($5)
+                                Upgrade ($5)
                             </button>
                         </div>
                     )}
@@ -153,7 +153,7 @@ export default function DashboardOverview() {
                                 window.dispatchEvent(new CustomEvent("open-create-project"));
                             }
                         }}
-                        className="flex items-center gap-2 px-4 py-2.5 bg-teal-500 hover:bg-teal-600 text-white text-sm font-bold rounded-xl shadow-sm shadow-teal-500/20 transition-all hover:shadow-teal-500/30 hover:-translate-y-0.5"
+                        className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 bg-teal-500 hover:bg-teal-600 text-white text-sm font-bold rounded-xl shadow-sm shadow-teal-500/20 transition-all hover:shadow-teal-500/30 hover:-translate-y-0.5"
                     >
                         <Plus size={16} />
                         New Project

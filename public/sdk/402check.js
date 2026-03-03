@@ -1,9 +1,9 @@
 /**
- * 402check — Payment Status Guard
+ * check402 — Payment Status Guard
  * Lightweight client-side SDK (~2KB)
  * 
  * Usage:
- * <script src="https://check402.com/sdk/402check.js" 
+ * <script src="https://check402.com/sdk/check402.js" 
  *         data-api-key="YOUR_API_KEY"
  *         data-server="https://check402.com">
  * </script>
@@ -16,7 +16,7 @@
     var scriptTag = scripts[scripts.length - 1];
 
     if (!scriptTag) {
-        console.warn("[402check] No script tag found with data-api-key attribute.");
+        console.warn("[check402] No script tag found with data-api-key attribute.");
         return;
     }
 
@@ -24,7 +24,7 @@
     var server = scriptTag.getAttribute("data-server") || "";
 
     if (!apiKey) {
-        console.warn("[402check] data-api-key is required.");
+        console.warn("[check402] data-api-key is required.");
         return;
     }
 
@@ -49,7 +49,7 @@
             })
             .catch(function (err) {
                 // Fail open — if we can't reach the server, let the app run
-                console.warn("[402check] Could not verify payment status:", err.message);
+                console.warn("[check402] Could not verify payment status:", err.message);
             });
     }
 

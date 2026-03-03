@@ -48,24 +48,24 @@ export default function ProjectsListPage() {
 
     return (
         <>
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-slate-900 mb-2">Projects</h1>
-                    <p className="text-slate-500 font-medium">Manage your client web app projects</p>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 leading-tight">Projects</h1>
+                    <p className="text-sm sm:text-base text-slate-500 font-medium">Manage your client web app projects</p>
                 </div>
                 <button
                     onClick={() => window.dispatchEvent(new CustomEvent("open-create-project"))}
-                    className="inline-flex items-center justify-center bg-teal-500 hover:bg-teal-600 text-white font-bold py-2.5 px-4 rounded-xl shadow-sm shadow-teal-500/20 transition-all hover:shadow-teal-500/30 hover:-translate-y-0.5"
+                    className="w-full sm:w-auto inline-flex items-center justify-center bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-xl shadow-sm shadow-teal-500/20 transition-all hover:shadow-teal-500/30 hover:-translate-y-0.5"
                 >
                     + New Project
                 </button>
             </div>
 
             <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden mt-6">
-                <div className="p-4 sm:p-5 flex flex-col md:flex-row justify-between gap-4 border-b border-slate-100 bg-slate-50/50">
+                <div className="p-4 sm:p-5 flex flex-col lg:flex-row justify-between gap-4 border-b border-slate-100 bg-slate-50/50">
                     <input
                         type="text"
-                        className="w-full md:max-w-xs px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium text-sm shadow-sm"
+                        className="w-full lg:max-w-xs px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium text-sm shadow-sm"
                         placeholder="Search projects..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -74,7 +74,7 @@ export default function ProjectsListPage() {
                         {["ALL", "COMPLETED", "PENDING", "DEFAULTED"].map((status) => (
                             <button
                                 key={status}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all shadow-sm ${filter === status
+                                className={`flex-1 sm:flex-none px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all shadow-sm whitespace-nowrap ${filter === status
                                     ? "bg-slate-800 text-white shadow-slate-800/20"
                                     : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"}`}
                                 onClick={() => setFilter(status)}

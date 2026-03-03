@@ -12,8 +12,8 @@ export default function TermsPage() {
             <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
                 <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 group">
-                        <img src="/logo.png" alt="402check" className="h-6 w-auto group-hover:opacity-80 transition-opacity" />
-                        <span className="font-bold text-slate-900 tracking-tight text-lg">402check</span>
+                        <img src="/logo.png" alt="check402" className="h-6 w-auto group-hover:opacity-80 transition-opacity" />
+                        <span className="font-bold text-slate-900 tracking-tight text-lg">Check 402</span>
                     </Link>
                     <Link href="/dashboard" className="text-sm font-bold text-teal-600 hover:text-teal-700 transition-colors flex items-center gap-1.5">
                         <ArrowLeft size={16} />
@@ -33,7 +33,7 @@ export default function TermsPage() {
 
                 <div className="prose prose-slate max-w-none text-slate-600 font-medium leading-relaxed space-y-8">
                     <p className="text-lg">
-                        Welcome to 402check ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of the 402check website, API, and dashboard (collectively, the "Service").
+                        Welcome to Check 402 ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of the Check 402 website, API, and dashboard (collectively, the "Service").
                     </p>
                     <p className="text-lg">
                         By creating an account, generating an API key, or embedding our code, you ("User," "Developer," or "Agency") agree to be bound by these Terms. If you do not agree to these Terms, do not use the Service.
@@ -49,7 +49,7 @@ export default function TermsPage() {
                                 <h2 className="text-2xl font-extrabold text-slate-900">1. Description of Service</h2>
                             </div>
                             <p>
-                                402check provides technical infrastructure and an API designed to allow web developers and agencies to programmatically verify payment status and manage access to digital projects they have built. The Service acts strictly as a state-management toggle; how the user's application responds to the API status is solely determined by the code implemented by the User.
+                                check402 provides technical infrastructure and an API designed to allow web developers and agencies to programmatically verify payment status and manage access to digital projects they have built. The Service acts strictly as a state-management toggle; how the user's application responds to the API status is solely determined by the code implemented by the User.
                             </p>
                         </section>
 
@@ -63,7 +63,7 @@ export default function TermsPage() {
                                 <h2 className="text-2xl font-extrabold text-slate-900">2. User Obligations and Acceptable Use Policy</h2>
                             </div>
                             <p className="mb-4">
-                                Because our Service allows you to restrict access to digital assets, you must adhere strictly to the following rules. You agree that you will only use 402check if:
+                                Because our Service allows you to restrict access to digital assets, you must adhere strictly to the following rules. You agree that you will only use check402 if:
                             </p>
                             <ul className="space-y-4">
                                 <li className="flex gap-3">
@@ -76,7 +76,7 @@ export default function TermsPage() {
                                 </li>
                                 <li className="flex gap-3">
                                     <div className="w-6 h-6 rounded-full bg-teal-100 flex-shrink-0 flex items-center justify-center text-teal-600 font-bold text-xs">3</div>
-                                    <p><strong className="text-slate-900">No Unauthorized Access:</strong> You will not embed the 402check API into projects, websites, or applications that you do not own or do not have the authorized right to modify.</p>
+                                    <p><strong className="text-slate-900">No Unauthorized Access:</strong> You will not embed the check402 API into projects, websites, or applications that you do not own or do not have the authorized right to modify.</p>
                                 </li>
                                 <li className="flex gap-3">
                                     <div className="w-6 h-6 rounded-full bg-teal-100 flex-shrink-0 flex items-center justify-center text-teal-600 font-bold text-xs">4</div>
@@ -95,10 +95,10 @@ export default function TermsPage() {
                                 <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
                                     <Lock size={24} />
                                 </div>
-                                <h2 className="text-2xl font-extrabold text-slate-900">3. Role of 402check (The "Infrastructure" Clause)</h2>
+                                <h2 className="text-2xl font-extrabold text-slate-900">3. Role of check402 (The "Infrastructure" Clause)</h2>
                             </div>
                             <p className="mb-4">
-                                You acknowledge and agree that 402check provides only the technical infrastructure (the API and dashboard) to manage project states.
+                                You acknowledge and agree that check402 provides only the technical infrastructure (the API and dashboard) to manage project states.
                             </p>
                             <ul className="list-disc list-inside space-y-2 font-bold text-slate-700">
                                 <li>We are not a party to any contract, agreement, or dispute between you and your clients.</li>
@@ -116,13 +116,13 @@ export default function TermsPage() {
                                 <h2 className="text-2xl font-extrabold text-slate-900">4. Indemnification</h2>
                             </div>
                             <p className="mb-4">
-                                You agree to defend, indemnify, and hold harmless 402check, its founders, employees, and affiliates from and against any and all claims, damages, obligations, losses, liabilities, costs, or debt, and expenses arising from:
+                                You agree to defend, indemnify, and hold harmless check402, its founders, employees, and affiliates from and against any and all claims, damages, obligations, losses, liabilities, costs, or debt, and expenses arising from:
                             </p>
                             <ul className="list-disc list-inside space-y-2 text-slate-600 italic">
                                 <li>Your use of and access to the Service.</li>
                                 <li>Your violation of any term of these Terms of Service.</li>
                                 <li>Any dispute, lawsuit, or claim brought against us by your client or any third party resulting from your decision to restrict access to a project using our API.</li>
-                                <li>Any financial loss, SEO damage, or data loss experienced by your client due to the implementation of the 402check script.</li>
+                                <li>Any financial loss, SEO damage, or data loss experienced by your client due to the implementation of the check402 script.</li>
                             </ul>
                         </section>
 
@@ -135,10 +135,10 @@ export default function TermsPage() {
                                 <h2 className="text-2xl font-extrabold text-slate-900">5. Disclaimer of Warranties</h2>
                             </div>
                             <p className="font-bold border-l-4 border-slate-200 pl-4 mb-4">
-                                THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. 402check MAKES NO WARRANTIES, EXPRESSED OR IMPLIED, AND HEREBY DISCLAIMS AND NEGATES ALL OTHER WARRANTIES, INCLUDING WITHOUT LIMITATION, IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT OF INTELLECTUAL PROPERTY.
+                                THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. check402 MAKES NO WARRANTIES, EXPRESSED OR IMPLIED, AND HEREBY DISCLAIMS AND NEGATES ALL OTHER WARRANTIES, INCLUDING WITHOUT LIMITATION, IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT OF INTELLECTUAL PROPERTY.
                             </p>
                             <p>
-                                Furthermore, 402check does not warrant or make any representations concerning the accuracy, likely results, or reliability of the Service. We do not guarantee 100% uptime of our API. You are strictly advised to code fail-safes (timeouts) into your implementation so that your clients' websites default to a functional state in the event of a 402check server outage.
+                                Furthermore, check402 does not warrant or make any representations concerning the accuracy, likely results, or reliability of the Service. We do not guarantee 100% uptime of our API. You are strictly advised to code fail-safes (timeouts) into your implementation so that your clients' websites default to a functional state in the event of a check402 server outage.
                             </p>
                         </section>
 
@@ -151,10 +151,10 @@ export default function TermsPage() {
                                 <h2 className="text-2xl font-extrabold text-Black">6. Limitation of Liability</h2>
                             </div>
                             <p className="font-bold text-Black mb-4 italic">
-                                IN NO EVENT SHALL 402check, ITS DIRECTORS, EMPLOYEES, OR AGENTS, BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM (I) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE SERVICE; (II) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE; OR (III) ANY UNAUTHORIZED ACCESS, USE OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT.
+                                IN NO EVENT SHALL check402, ITS DIRECTORS, EMPLOYEES, OR AGENTS, BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM (I) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE SERVICE; (II) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE; OR (III) ANY UNAUTHORIZED ACCESS, USE OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT.
                             </p>
                             <p>
-                                In no event shall our total liability to you for all damages, losses, or causes of action exceed the amount you have paid 402check in the last six (6) months, or one hundred U.S. Dollars ($100), whichever is greater.
+                                In no event shall our total liability to you for all damages, losses, or causes of action exceed the amount you have paid check402 in the last six (6) months, or one hundred U.S. Dollars ($100), whichever is greater.
                             </p>
                         </section>
 
@@ -205,10 +205,10 @@ export default function TermsPage() {
                             <h2 className="text-3xl font-extrabold mb-4">10. Contact Us</h2>
                             <p className="mb-8 font-medium text-teal-50">If you have any questions about these Terms, please contact our support team.</p>
                             <a
-                                href="mailto:support@402check.com"
+                                href="mailto:support@check402.com"
                                 className="inline-block px-10 py-4 bg-white text-teal-600 font-extrabold rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
                             >
-                                support@402check.com
+                                support@check402.com
                             </a>
                         </section>
                     </div>

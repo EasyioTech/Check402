@@ -30,10 +30,10 @@ try {
         let content = fs.readFileSync(f, 'utf8');
         let original = content;
 
-        content = content.replace(/PayGuard/g, '402check');
-        content = content.replace(/payguard/g, '402check');
-        content = content.replace(/PAYGUARD/g, '402CHECK');
-        content = content.replace(/payment-guard\.js/g, '402check.js');
+        content = content.replace(/PayGuard/g, 'check402');
+        content = content.replace(/payguard/g, 'check402');
+        content = content.replace(/PAYGUARD/g, 'check402');
+        content = content.replace(/payment-guard\.js/g, 'check402.js');
 
         if (content !== original) {
             fs.writeFileSync(f, content);
