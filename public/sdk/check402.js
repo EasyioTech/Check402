@@ -55,71 +55,63 @@
     }
 
     function showBlockPage(projectName, clientName) {
-        // Prevent any further interaction
-        document.title = "Payment Required — " + (projectName || "System Blocked");
+        document.title = "Service Suspended — Check 402";
 
         // Replace the entire body
         document.body.innerHTML = "";
         document.body.style.cssText =
             "margin:0;padding:0;min-height:100vh;display:flex;align-items:center;justify-content:center;" +
-            "background:#0a0a0f;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;" +
-            "color:#f0f0f5;overflow:hidden;";
+            "background:#ffffff;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;" +
+            "color:#0f172a;overflow:hidden;";
 
-        // Add background gradient
+        // Add background pattern (subtle mesh/radial)
         var bg = document.createElement("div");
         bg.style.cssText =
-            "position:fixed;inset:0;z-index:0;" +
-            "background:radial-gradient(circle at 30% 40%,rgba(239,68,68,0.08) 0%,transparent 50%)," +
-            "radial-gradient(circle at 70% 60%,rgba(245,158,11,0.06) 0%,transparent 50%);";
+            "position:fixed;inset:0;z-index:0;pointer-events:none;" +
+            "background-image:radial-gradient(at 0% 0%, rgba(20,184,166,0.03) 0, transparent 50%)," +
+            "radial-gradient(at 100% 100%, rgba(20,184,166,0.02) 0, transparent 50%);";
         document.body.appendChild(bg);
 
         // Create the block card
         var card = document.createElement("div");
         card.style.cssText =
-            "position:relative;z-index:1;max-width:520px;width:90%;padding:48px;text-align:center;" +
-            "background:rgba(22,22,31,0.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);" +
-            "border:1px solid rgba(255,255,255,0.06);border-radius:20px;" +
-            "box-shadow:0 8px 32px rgba(0,0,0,0.5);animation:check402-in 0.5s ease;";
+            "position:relative;z-index:1;max-width:440px;width:90%;padding:48px;text-align:center;" +
+            "background:#ffffff;border:1px solid #f1f5f9;border-radius:24px;" +
+            "box-shadow:0 25px 50px -12px rgba(0,0,0,0.08);animation:check402-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);";
 
         card.innerHTML =
-            '<style>@keyframes check402-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}' +
-            "@keyframes check402-pulse{0%,100%{opacity:1}50%{opacity:0.5}}</style>" +
-            // Warning Icon
-            '<div style="width:72px;height:72px;margin:0 auto 24px;border-radius:50%;' +
-            "background:rgba(239,68,68,0.12);border:2px solid rgba(239,68,68,0.3);" +
-            'display:flex;align-items:center;justify-content:center;font-size:32px;">' +
-            "⚠️</div>" +
+            '<style>' +
+            '@keyframes check402-fade-in{from{opacity:0;transform:translateY(16px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}' +
+            '@keyframes check402-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}' +
+            '@keyframes check402-pulse{0%,100%{opacity:1}50%{opacity:0.4}}' +
+            '</style>' +
+            // Animated Icon
+            '<div style="width:80px;height:80px;margin:0 auto 32px;border-radius:24px;' +
+            "background:#fff;border:1px solid #f1f5f9;box-shadow:0 10px 15px -3px rgba(0,0,0,0.05);" +
+            'display:flex;align-items:center;justify-content:center;font-size:32px;animation:check402-float 3s ease-in-out infinite;">' +
+            '<span style="filter:grayscale(1) opacity(0.8);">🔒</span></div>' +
             // Title
-            '<h1 style="font-size:1.6rem;font-weight:800;margin-bottom:8px;' +
-            'background:linear-gradient(135deg,#ef4444,#f59e0b);-webkit-background-clip:text;' +
-            '-webkit-text-fill-color:transparent;background-clip:text;">' +
-            "Payment Required</h1>" +
+            '<h1 style="font-size:1.75rem;font-weight:800;margin-bottom:12px;letter-spacing:-0.02em;color:#0f172a;">' +
+            "Service Suspended</h1>" +
             // Subtitle
-            '<p style="color:#9595a8;font-size:0.95rem;margin-bottom:32px;line-height:1.6;">' +
-            "This system has been temporarily suspended due to an outstanding payment. " +
-            "Please complete your payment to restore access.</p>" +
-            // Project Info
-            '<div style="background:#12121a;border:1px solid #2a2a3a;border-radius:10px;padding:16px;margin-bottom:24px;">' +
-            '<div style="display:flex;justify-content:space-between;margin-bottom:8px;">' +
-            '<span style="color:#6b6b7d;font-size:0.8rem;">Project</span>' +
-            '<span style="font-weight:600;font-size:0.85rem;">' +
-            (projectName || "—") +
-            "</span></div>" +
-            '<div style="display:flex;justify-content:space-between;">' +
-            '<span style="color:#6b6b7d;font-size:0.8rem;">Client</span>' +
-            '<span style="font-weight:600;font-size:0.85rem;">' +
-            (clientName || "—") +
-            "</span></div></div>" +
+            '<p style="color:#64748b;font-size:1rem;margin-bottom:32px;line-height:1.6;font-weight:450;">' +
+            "Access to this application has been temporarily paused due to an outstanding payment balance.</p>" +
             // Status badge
-            '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;' +
-            "border-radius:9999px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);" +
-            'color:#ef4444;font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">' +
+            '<div style="display:inline-flex;align-items:center;gap:10px;padding:10px 24px;' +
+            "border-radius:9999px;background:#fef2f2;border:1px solid #fee2e2;" +
+            'color:#991b1b;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:40px;">' +
             '<span style="width:8px;height:8px;border-radius:50%;background:#ef4444;' +
             'animation:check402-pulse 2s infinite;"></span>' +
-            "Payment Defaulted</div>" +
-            // Contact
-            '<p style="color:#6b6b7d;font-size:0.8rem;margin-top:32px;">' +
-            "If you believe this is an error, please contact the project administrator.</p>";
+            "Payment Required</div>" +
+            // Divider
+            '<div style="height:1px;background:#f1f5f9;width:100%;margin-bottom:24px;"></div>' +
+            // Branding
+            '<div style="font-size:0.85rem;color:#94a3b8;display:flex;align-items:center;justify-content:center;gap:6px;">' +
+            '<span>Powered by</span>' +
+            '<span style="font-weight:800;letter-spacing:-0.01em;">' +
+            '<span style="color:#14b8a6;">Check</span> <span style="color:#0f172a;">402</span>' +
+            '</span>' +
+            '</div>';
 
         document.body.appendChild(card);
 
