@@ -182,15 +182,21 @@ Response (200 OK):
                 <p>If Check 402 is unreachable, client apps continue working. No false blocks from server issues.</p>
             </Callout>
 
-            <h2>Quick Start</h2>
-            <p>The fastest integration — add one script tag to any HTML page:</p>
-            <CodeBlock id="quick-start" lang="html" copiedId={copiedId} onCopy={copy} code={`<script src="${server}/sdk/check402.js" 
-  data-api-key="YOUR_API_KEY"
-  data-server="${server}">
-</script>`} />
-            <p className="font-medium text-slate-500 mt-6">
+            <p className="font-medium text-slate-500 mt-10">
                 Select a framework from the sidebar for detailed, platform-specific guides.
             </p>
+
+            <div className="mt-12 pt-8 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div className="text-sm font-bold text-slate-400 uppercase tracking-widest">Next Steps</div>
+                <div className="flex gap-4">
+                    <button onClick={() => setActive("html")} className="flex items-center gap-2 text-teal-600 hover:text-teal-700 font-bold text-sm bg-teal-50 px-4 py-2 rounded-xl border border-teal-100 transition-all">
+                        HTML Guide <ArrowRight size={16} />
+                    </button>
+                    <button onClick={() => setActive("nextjs")} className="flex items-center gap-2 text-slate-600 hover:text-slate-900 font-bold text-sm bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 transition-all">
+                        Next.js Guide <ArrowRight size={16} />
+                    </button>
+                </div>
+            </div>
         </>
     );
 }
@@ -221,8 +227,20 @@ function HtmlGuide({ server, copiedId, copy }: GuideProps) {
 </html>`} />
 
             <Callout type="success" title="That's it!">
-                <p>No npm packages, no build configuration, no extra files. One script tag handles everything.</p>
+                <p>No npm packages, no build configuration, no extra files. One script tag handles everything. This is the ideal way to enforce payments on static sites or simple client handoffs.</p>
             </Callout>
+
+            <div className="mt-12 pt-8 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div className="text-sm font-bold text-slate-400 uppercase tracking-widest">Next Steps</div>
+                <div className="flex gap-4">
+                    <button onClick={() => setActive("react")} className="flex items-center gap-2 text-teal-600 hover:text-teal-700 font-bold text-sm bg-teal-50 px-4 py-2 rounded-xl border border-teal-100 transition-all">
+                        React Guide <ArrowRight size={16} />
+                    </button>
+                    <button onClick={() => setActive("overview")} className="flex items-center gap-2 text-slate-600 hover:text-slate-900 font-bold text-sm bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 transition-all">
+                        Back to Overview <ArrowRight size={16} />
+                    </button>
+                </div>
+            </div>
         </>
     );
 }

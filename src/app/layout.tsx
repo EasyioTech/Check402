@@ -49,7 +49,7 @@ export const metadata: Metadata = {
                 url: '/og-image.png',
                 width: 1200,
                 height: 630,
-                alt: 'Check 402 — Payment Enforcement',
+                alt: 'Check 402 — Payment Enforcement for Developers',
             },
         ],
         locale: 'en_US',

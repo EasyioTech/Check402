@@ -387,20 +387,73 @@ export default function LandingPageClient() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-white border-t border-slate-100 py-12">
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-6">
-                    <Link href="/" className="flex items-center gap-2 group grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100">
-                        <img src="/logo.png" alt="check402" className="h-6 w-auto" />
-                        <span className="text-lg font-extrabold tracking-tight font-sans">
-                            <span className="text-teal-500">Check</span> <span className="text-slate-900">402</span>
-                        </span>
-                    </Link>
-                    <div className="flex flex-wrap justify-center gap-6 sm:gap-8 text-sm font-medium text-slate-500">
-                        <Link href="/docs" className="hover:text-slate-900 transition-colors">Documentation</Link>
-                        <Link href="/login" className="hover:text-slate-900 transition-colors">Dashboard</Link>
-                        <a href="mailto:support@check402.com" className="hover:text-slate-900 transition-colors">Support</a>
+            <footer className="bg-slate-50 border-t border-slate-200 pt-20 pb-12">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+                        <div className="col-span-2 lg:col-span-2">
+                            <Link href="/" className="flex items-center gap-2 mb-6 group">
+                                <img src="/logo.png" alt="check402" className="h-8 w-auto transition-opacity group-hover:opacity-80" />
+                                <span className="text-xl font-extrabold tracking-tight">
+                                    <span className="text-teal-500 font-sans">Check</span> <span className="text-slate-900">402</span>
+                                </span>
+                            </Link>
+                            <p className="text-slate-500 text-sm font-medium leading-relaxed max-w-sm mb-6">
+                                The industry standard for payment enforcement. We empower developers to protect their work and ensure fair compensation through automated service suspension.
+                            </p>
+                            <div className="flex gap-4">
+                                <a href="#" className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-teal-500 transition-colors shadow-sm">
+                                    <Globe size={18} />
+                                </a>
+                                <a href="#" className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-teal-500 transition-colors shadow-sm">
+                                    <Shield size={18} />
+                                </a>
+                                <a href="#" className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-teal-500 transition-colors shadow-sm">
+                                    <Zap size={18} />
+                                </a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 className="text-slate-900 font-bold text-sm uppercase tracking-wider mb-6">Product</h4>
+                            <ul className="space-y-4 text-sm font-medium text-slate-500">
+                                <li><Link href="#features" className="hover:text-teal-500 transition-colors">Features</Link></li>
+                                <li><Link href="#how-it-works" className="hover:text-teal-500 transition-colors">How it works</Link></li>
+                                <li><Link href="#pricing" className="hover:text-teal-500 transition-colors">Pricing</Link></li>
+                                <li><Link href="/docs" className="hover:text-teal-500 transition-colors">API Reference</Link></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="text-slate-900 font-bold text-sm uppercase tracking-wider mb-6">Resources</h4>
+                            <ul className="space-y-4 text-sm font-medium text-slate-500">
+                                <li><Link href="/docs" className="hover:text-teal-500 transition-colors">Documentation</Link></li>
+                                <li><Link href="/login" className="hover:text-teal-500 transition-colors">Developer Portal</Link></li>
+                                <li><Link href="/signup" className="hover:text-teal-500 transition-colors">Integration Guide</Link></li>
+                                <li><Link href="/#faq" className="hover:text-teal-500 transition-colors">Help Center</Link></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="text-slate-900 font-bold text-sm uppercase tracking-wider mb-6">Legal</h4>
+                            <ul className="space-y-4 text-sm font-medium text-slate-500">
+                                <li><Link href="/terms" className="hover:text-teal-500 transition-colors">Terms of Service</Link></li>
+                                <li><Link href="/privacy" className="hover:text-teal-500 transition-colors">Privacy Policy</Link></li>
+                                <li><Link href="/security" className="hover:text-teal-500 transition-colors">Security Ethics</Link></li>
+                            </ul>
+                        </div>
                     </div>
-                    <p className="text-sm text-slate-400">© {new Date().getFullYear()} Check 402. All rights reserved.</p>
+
+                    <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">
+                            © {new Date().getFullYear()} Check 402. All rights reserved.
+                        </p>
+                        <div className="flex items-center gap-6">
+                            <span className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-widest">
+                                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                                Systems Operational
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </div>
