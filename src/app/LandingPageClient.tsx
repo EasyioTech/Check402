@@ -165,7 +165,7 @@ export default function LandingPageClient() {
                         </motion.div>
                         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-xs sm:text-sm text-slate-500 font-medium">
                             <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-teal-500" /> No credit card required</span>
-                            <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-teal-500" /> 2 projects free</span>
+                            <span className="flex items-center gap-1.5"><CheckCircle2 size={16} className="text-teal-500" /> 3 projects free</span>
                         </div>
                     </div>
 
@@ -344,7 +344,7 @@ export default function LandingPageClient() {
                                 <span className="text-slate-500 font-medium">/ forever</span>
                             </div>
                             <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-3 text-slate-600 text-sm"><CheckCircle2 className="w-5 h-5 text-teal-500" /> Up to 2 active projects</li>
+                                <li className="flex items-center gap-3 text-slate-600 text-sm"><CheckCircle2 className="w-5 h-5 text-teal-500" /> Up to 3 active projects</li>
                                 <li className="flex items-center gap-3 text-slate-600 text-sm"><CheckCircle2 className="w-5 h-5 text-teal-500" /> Standard dashboard</li>
                                 <li className="flex items-center gap-3 text-slate-600 text-sm"><CheckCircle2 className="w-5 h-5 text-teal-500" /> Community support</li>
                             </ul>
@@ -359,7 +359,7 @@ export default function LandingPageClient() {
                             <h3 className="text-2xl font-extrabold text-slate-900 mb-2">Enterprise</h3>
                             <p className="text-slate-500 text-sm font-medium mb-6">For serious freelancers and agencies.</p>
                             <div className="flex items-baseline gap-1 mb-8">
-                                <span className="text-4xl font-extrabold text-slate-900">$5</span>
+                                <span className="text-4xl font-extrabold text-slate-900">$15</span>
                                 <span className="text-slate-500 font-medium">/ lifetime</span>
                             </div>
                             <ul className="space-y-4 mb-8">

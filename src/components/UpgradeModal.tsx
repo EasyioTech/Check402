@@ -137,7 +137,7 @@ export default function UpgradeModal({ isOpen, onClose }: UpgradeModalProps) {
                                     <div className="flex flex-col">
                                         <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">One-time payment</span>
                                         <div className="flex items-baseline gap-1">
-                                            <span className="text-4xl font-black text-slate-900">$5</span>
+                                            <span className="text-4xl font-black text-slate-900">$15</span>
                                             <span className="text-slate-500 font-bold">USD</span>
                                         </div>
                                     </div>

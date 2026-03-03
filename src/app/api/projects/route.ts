@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
             where: { userId: session.user.id },
         });
 
-        if (projectCount >= 2) {
+        if (projectCount >= 3) {
             return NextResponse.json(
                 { error: "Project limit reached. Upgrade to Enterprise for unlimited projects." },
                 { status: 403 }

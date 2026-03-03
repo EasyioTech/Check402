@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, Layout, Globe, Server, Code, Layers, ShieldAlert, ArrowRight, ExternalLink } from "lucide-react";
+import { X, Layout, Globe, Server, Code, Layers, ShieldAlert, ArrowRight, ExternalLink, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -30,6 +30,7 @@ export default function CreateProjectModal({ isOpen, onClose, onSuccess }: Creat
     const [confirmationInput, setConfirmationInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleContinue = (e: React.FormEvent) => {
         e.preventDefault();
@@ -80,14 +81,13 @@ export default function CreateProjectModal({ isOpen, onClose, onSuccess }: Creat
             const errorMessage = err instanceof Error ? err.message : "Something went wrong";
             setError(errorMessage);
 
-            // If it's a project limit error, trigger the upgrade modal
             if (errorMessage.toLowerCase().includes("limit reached")) {
-                onClose(); // Close this modal
+                onClose();
                 setTimeout(() => {
                     window.dispatchEvent(new CustomEvent("open-upgrade-modal"));
-                }, 300); // Small delay to wait for current modal to close
+                }, 300);
             } else {
-                setStep(0); // For other errors, go back to details
+                setStep(0);
             }
         } finally {
             setLoading(false);
@@ -102,17 +102,18 @@ export default function CreateProjectModal({ isOpen, onClose, onSuccess }: Creat
         setFramework("nextjs");
         setConfirmationInput("");
         setError("");
+        setIsDropdownOpen(false);
     };
 
-    // Auto-reset when modal closes
     useEffect(() => {
         if (!isOpen) {
-            const timer = setTimeout(resetForm, 300); // Wait for exit animation
+            const timer = setTimeout(resetForm, 300);
             return () => clearTimeout(timer);
         }
     }, [isOpen]);
 
     const isPhraseCorrect = confirmationInput === LEGAL_PHRASE;
+    const selectedFramework = frameworks.find(f => f.id === framework) || frameworks[0];
 
     return (
         <AnimatePresence>
@@ -183,17 +184,58 @@ export default function CreateProjectModal({ isOpen, onClose, onSuccess }: Creat
                                         />
                                     </div>
 
-                                    <div className="space-y-1.5">
+                                    <div className="space-y-1.5 relative">
                                         <label className="text-sm font-bold text-slate-700">Technology Framework</label>
-                                        <select
-                                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium appearance-none"
-                                            value={framework}
-                                            onChange={e => setFramework(e.target.value)}
-                                        >
-                                            {frameworks.map(f => (
-                                                <option key={f.id} value={f.id}>{f.name}</option>
-                                            ))}
-                                        </select>
+                                        <div className="relative">
+                                            <button
+                                                type="button"
+                                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium flex items-center justify-between group"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <span className="text-slate-400 group-hover:text-teal-500 transition-colors">
+                                                        {selectedFramework.icon}
+                                                    </span>
+                                                    {selectedFramework.name}
+                                                </div>
+                                                <ChevronDown size={18} className={`text-slate-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
+                                            </button>
+
+                                            <AnimatePresence>
+                                                {isDropdownOpen && (
+                                                    <>
+                                                        <div className="fixed inset-0 z-[60]" onClick={() => setIsDropdownOpen(false)} />
+                                                        <motion.div
+                                                            initial={{ opacity: 0, y: 4, scale: 0.98 }}
+                                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                            exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                                                            transition={{ duration: 0.15 }}
+                                                            className="absolute left-0 right-0 top-full mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/40 z-[70] overflow-hidden p-1.5"
+                                                        >
+                                                            {frameworks.map(f => (
+                                                                <button
+                                                                    key={f.id}
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setFramework(f.id);
+                                                                        setIsDropdownOpen(false);
+                                                                    }}
+                                                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${framework === f.id
+                                                                        ? "bg-teal-50 text-teal-600"
+                                                                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                                                                        }`}
+                                                                >
+                                                                    <span className={framework === f.id ? "text-teal-500" : "text-slate-400"}>
+                                                                        {f.icon}
+                                                                    </span>
+                                                                    {f.name}
+                                                                </button>
+                                                            ))}
+                                                        </motion.div>
+                                                    </>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
                                     </div>
 
                                     <div className="space-y-1.5">

@@ -11,7 +11,7 @@ export async function POST(req: Request) {
         }
 
         const options = {
-            amount: 500, // $5.00 in cents
+            amount: 1500, // $15.00 in cents
             currency: "USD",
             receipt: `receipt_${session.user.id}_${Date.now()}`,
             notes: {

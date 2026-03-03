@@ -1,12 +1,20 @@
-check402.com {
-    reverse_proxy web:3000
+check402.com, www.check402.com {
+    # Redirect www to non-www
+    @www host www.check402.com
+    redir @www https://check402.com{uri}
+
+    reverse_proxy web:3000 {
+        header_up X-Forwarded-Port 443
+        header_up X-Forwarded-Proto https
+    }
     
     header {
         # Enable HSTS
-        Strict-Transport-Security "max-age=31536000;"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
         # Other security headers
         X-Content-Type-Options nosniff
         X-Frame-Options DENY
+        X-XSS-Protection "1; mode=block"
         Referrer-Policy no-referrer-when-downgrade
     }
 }
