@@ -99,16 +99,16 @@ export default function DocsPage() {
 
                 {/* Content */}
                 <main className="flex-1 bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-sm w-full prose prose-slate max-w-none prose-headings:font-extrabold prose-h1:text-4xl prose-h1:tracking-tight prose-h1:mb-6 prose-h2:text-2xl prose-h2:mt-12 prose-h3:text-xl prose-a:text-teal-600 prose-a:no-underline hover:prose-a:underline prose-code:text-teal-600 prose-code:bg-teal-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none">
-                    {active === "overview" && <Overview server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "html" && <HtmlGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "nextjs" && <NextjsGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "react" && <ReactGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "vue" && <VueGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "angular" && <AngularGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "laravel" && <LaravelGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "django" && <DjangoGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "rails" && <RailsGuide server={server} copiedId={copiedId} copy={copy} />}
-                    {active === "wordpress" && <WordPressGuide server={server} copiedId={copiedId} copy={copy} />}
+                    {active === "overview" && <Overview server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "html" && <HtmlGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "nextjs" && <NextjsGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "react" && <ReactGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "vue" && <VueGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "angular" && <AngularGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "laravel" && <LaravelGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "django" && <DjangoGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "rails" && <RailsGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "wordpress" && <WordPressGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
                 </main>
             </div>
         </div>
@@ -117,7 +117,7 @@ export default function DocsPage() {
 
 /* ========== SECTION COMPONENTS ========== */
 
-type GuideProps = { server: string; copiedId: string | null; copy: (c: string, i: string) => void };
+type GuideProps = { server: string; copiedId: string | null; copy: (c: string, i: string) => void; setActive: (f: Framework) => void };
 
 function Callout({ type, title, children }: { type: 'info' | 'warning' | 'success', title: string, children: React.ReactNode }) {
     const styles = {
@@ -133,7 +133,7 @@ function Callout({ type, title, children }: { type: 'info' | 'warning' | 'succes
     );
 }
 
-function Overview({ server, copiedId, copy }: GuideProps) {
+function Overview({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1>Check 402 Documentation</h1>
@@ -201,7 +201,7 @@ Response (200 OK):
     );
 }
 
-function HtmlGuide({ server, copiedId, copy }: GuideProps) {
+function HtmlGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Globe className="text-slate-400" size={32} /> HTML / Vanilla JS</h1>
@@ -245,7 +245,7 @@ function HtmlGuide({ server, copiedId, copy }: GuideProps) {
     );
 }
 
-function NextjsGuide({ server, copiedId, copy }: GuideProps) {
+function NextjsGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Triangle className="text-slate-900" size={32} fill="currentColor" /> Next.js Integration</h1>
@@ -302,7 +302,7 @@ NEXT_PUBLIC_CHECK402_SERVER=${server}`} />
     );
 }
 
-function ReactGuide({ server, copiedId, copy }: GuideProps) {
+function ReactGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Box className="text-blue-500" size={32} /> React (Vite / CRA)</h1>
@@ -344,7 +344,7 @@ function App() {
     );
 }
 
-function VueGuide({ server, copiedId, copy }: GuideProps) {
+function VueGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Heart className="text-emerald-500" size={32} fill="currentColor" /> Vue.js Integration</h1>
@@ -381,7 +381,7 @@ app.use(Check402Plugin);`} />
     );
 }
 
-function AngularGuide({ server, copiedId, copy }: GuideProps) {
+function AngularGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Hexagon className="text-red-600" size={32} fill="currentColor" /> Angular Integration</h1>
@@ -429,7 +429,7 @@ providers: [{
     );
 }
 
-function LaravelGuide({ server, copiedId, copy }: GuideProps) {
+function LaravelGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Circle className="text-red-500" size={32} fill="currentColor" /> Laravel Integration</h1>
@@ -490,7 +490,7 @@ class Check402
     );
 }
 
-function DjangoGuide({ server, copiedId, copy }: GuideProps) {
+function DjangoGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Circle className="text-emerald-700" size={32} /> Django Integration</h1>
@@ -545,7 +545,7 @@ MIDDLEWARE = [
     );
 }
 
-function RailsGuide({ server, copiedId, copy }: GuideProps) {
+function RailsGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><Diamond className="text-red-500" size={32} fill="currentColor" /> Ruby on Rails</h1>
@@ -599,7 +599,7 @@ config.middleware.insert_before 0, Check402`} />
     );
 }
 
-function WordPressGuide({ server, copiedId, copy }: GuideProps) {
+function WordPressGuide({ server, copiedId, copy, setActive }: GuideProps) {
     return (
         <>
             <h1 className="flex items-center gap-3"><FileText className="text-slate-700" size={32} /> WordPress Integration</h1>
