@@ -1,0 +1,20 @@
+# Check 402 — Payment Enforcement
+
+Check 402 is a micro-SaaS platform that helps developers manage client web app payment statuses through simple API key verification.
+
+## Core Purpose
+- Prevent scope creep and unpaid work by enforcing payment statuses.
+- Simple integration for any web application.
+- API-first approach for payment status checks.
+
+## Key Features
+- **Project Management**: Create and track multiple projects.
+- **API Key Verification**: Simple REST API to check if a project is 'paid'.
+- **Razorpay Integration**: Seamless payment processing for client projects.
+- **Dashboard**: Real-time stats on project payments.
+
+## Links
+- Homepage: https://check402.com
+- Documentation: https://check402.com/docs
+- Login: https://check402.com/login
+- Signup: https://check402.com/signup
