@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgrespassword}
+      POSTGRES_DB: ${POSTGRES_DB:-payment_tracker}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_local:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgrespassword}@db:5432/${POSTGRES_DB:-payment_tracker}?schema=public
+      - NEXTAUTH_URL=http://localhost:3000
+      - AUTH_GITHUB_ID=${AUTH_GITHUB_ID}
+      - AUTH_GITHUB_SECRET=${AUTH_GITHUB_SECRET}
+      - AUTH_SECRET=${AUTH_SECRET:-vS7H2kP9bN5mV3tC8xR1zM4qL6jW0pG4nS2rB1vD9mX8wZ7=}
+      - AUTH_TRUST_HOST=true
+    command: sh -c "npx prisma db push && npm run db:seed && node server.js"
+    depends_on:
+      - db
+
+volumes:
+  pgdata_local:

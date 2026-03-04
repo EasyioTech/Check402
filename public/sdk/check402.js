@@ -11,25 +11,33 @@
 (function () {
     "use strict";
 
-    // Find our own script tag to read data attributes
-    var scripts = document.querySelectorAll("script[data-api-key]");
-    var scriptTag = scripts[scripts.length - 1];
+    // Base64 decoder for environments without atob
+    var decode = function (str) {
+        try {
+            return decodeURIComponent(atob(str).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        } catch (e) { return str; }
+    };
 
-    if (!scriptTag) {
-        console.warn("[check402] No script tag found with data-api-key attribute.");
-        return;
-    }
+    // Find script tag (check generic names first for stealth)
+    var scriptTag = document.querySelector("script[data-id]") ||
+        document.querySelector("script[data-api-key]");
 
-    var apiKey = scriptTag.getAttribute("data-api-key");
-    var server = scriptTag.getAttribute("data-server") || "";
+    if (!scriptTag) return;
 
-    if (!apiKey) {
-        console.warn("[check402] data-api-key is required.");
-        return;
-    }
+    // Read attributes (cleartext or encoded)
+    var rawKey = scriptTag.getAttribute("data-id") || scriptTag.getAttribute("data-api-key");
+    var rawServer = scriptTag.getAttribute("data-v") || scriptTag.getAttribute("data-server") || "";
 
-    // Remove trailing slash from server URL
-    server = server.replace(/\/+$/, "");
+    if (!rawKey) return;
+
+    // Decode if it looks like Base64 (heuristic: no spaces, contains only B64 chars, often ends in =)
+    var apiKey = /^[A-Za-z0-9+/=]+$/.test(rawKey) && rawKey.length > 20 ? decode(rawKey) : rawKey;
+    var server = /^[A-Za-z0-9+/=]+$/.test(rawServer) && rawServer.length > 10 ? decode(rawServer) : rawServer;
+
+    // Clean server URL
+    server = (server || "").replace(/\/+$/, "");
 
     function checkPaymentStatus() {
         var url = server + "/api/check-status?key=" + encodeURIComponent(apiKey);
@@ -45,12 +53,14 @@
                 if (data.status && data.status.toUpperCase() === "DEFAULTED") {
                     showBlockPage(data.project, data.client);
                 } else {
-                    console.log("[check402] Payment status verified:", data.status);
+                    // Silently succeed in production
+                    if (window.location.hostname === "localhost") {
+                        console.log("[Security] Module verified.");
+                    }
                 }
             })
             .catch(function (err) {
-                // Fail open — if we can't reach the server, let the app run
-                console.warn("[check402] Could not verify payment status:", err.message);
+                // Fail open
             });
     }
 

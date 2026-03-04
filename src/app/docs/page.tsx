@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { BookOpen, Globe, Triangle, Heart, Box, Circle, Hexagon, Diamond, FileText, Zap, CheckCircle2, Clock, Ban, ArrowRight } from "lucide-react";
 
-type Framework = "overview" | "html" | "nextjs" | "react" | "vue" | "angular" | "laravel" | "django" | "rails" | "wordpress";
+type Framework = "overview" | "html" | "nextjs" | "react" | "vue" | "angular" | "laravel" | "django" | "rails" | "wordpress" | "security";
 
 const tabs: { id: Framework; label: string; icon: React.ReactNode }[] = [
     { id: "overview", label: "Overview", icon: <BookOpen size={18} /> },
@@ -17,6 +17,7 @@ const tabs: { id: Framework; label: string; icon: React.ReactNode }[] = [
     { id: "django", label: "Django", icon: <Circle size={18} /> },
     { id: "rails", label: "Rails", icon: <Diamond size={18} /> },
     { id: "wordpress", label: "WordPress", icon: <FileText size={18} /> },
+    { id: "security", label: "Security & Stealth", icon: <Zap size={18} /> },
 ];
 
 function CodeBlock({ id, lang, code, copiedId, onCopy }: { id: string; lang: string; code: string; copiedId: string | null; onCopy: (c: string, i: string) => void }) {
@@ -109,6 +110,7 @@ export default function DocsPage() {
                     {active === "django" && <DjangoGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
                     {active === "rails" && <RailsGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
                     {active === "wordpress" && <WordPressGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
+                    {active === "security" && <SecurityGuide server={server} copiedId={copiedId} copy={copy} setActive={setActive} />}
                 </main>
             </div>
         </div>
@@ -181,6 +183,22 @@ Response (200 OK):
             <Callout type="info" title="Fail-Open Design">
                 <p>If Check 402 is unreachable, client apps continue working. No false blocks from server issues.</p>
             </Callout>
+
+            <div className="p-6 my-8 rounded-2xl bg-slate-900 text-white shadow-xl border border-slate-800">
+                <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 bg-amber-500 rounded-lg text-white"><Zap size={20} fill="currentColor" /></div>
+                    <h3 className="text-xl font-bold m-0 text-white">Stealth Mode</h3>
+                </div>
+                <p className="text-slate-400 text-sm mb-4 font-medium">
+                    Worried about tech-savvy clients removing the script? Use **Stealth Mode** to obfuscate your integration using Base64 encoding and generic filenames.
+                </p>
+                <button
+                    onClick={() => setActive("security")}
+                    className="flex items-center gap-2 text-amber-400 hover:text-amber-300 font-bold text-sm transition-colors"
+                >
+                    Learn about Stealth Mode <ArrowRight size={16} />
+                </button>
+            </div>
 
             <p className="font-medium text-slate-500 mt-10">
                 Select a framework from the sidebar for detailed, platform-specific guides.
@@ -636,6 +654,62 @@ add_filter('script_loader_tag', 'check402_attrs', 10, 2);`} />
             <Callout type="info" title="Plugin Alternative">
                 <p>You can also use an "Insert Headers and Footers" plugin to add the script tag globally without modifying any of your theme's files.</p>
             </Callout>
+        </>
+    );
+}
+function SecurityGuide({ server, copiedId, copy, setActive }: GuideProps) {
+    const serverB64 = typeof btoa !== 'undefined' ? btoa(server) : "aHR0cHM6Ly9jaGVjazQwMi5jb20=";
+    const exampleKey = "NThlZWEzY2YtZGJkMi00ZDMyLTk5NmYtMGQ3M2Q5Zjk2ODUy"; // Example Base64
+
+    return (
+        <>
+            <h1 className="flex items-center gap-3"><Zap className="text-amber-500" size={32} fill="currentColor" /> Security & Stealth Mode</h1>
+            <p className="text-lg text-slate-500 font-medium lead">
+                Prevent tech-savvy clients from identifying and removing the payment enforcement script.
+            </p>
+
+            <h2>Method 1: Polymorphic Loader (Advanced)</h2>
+            <p>
+                The most secure way to hide the script is to use a **Polymorphic Loader**. This is a small, obfuscated JavaScript snippet that decodes your script URL at runtime and injects it into the DOM. This prevents "View Source" or static scanners from seeing the Check 402 domain.
+            </p>
+            <CodeBlock id="stealth-poly" lang="html" copiedId={copiedId} onCopy={copy} code={`<!-- Enhanced Stealth Loader -->
+<script>
+(function(a,b,c,d){a=atob(a);b=document.createElement('script');b.src=a;b.setAttribute('data-id',c);b.setAttribute('data-v',d);document.head.appendChild(b);})('${typeof btoa !== 'undefined' ? btoa(server + "/sdk/analytics.js") : "aHR0cHM6Ly9jaGVjazQwMi5jb20vc2RrL2FuYWx5dGljcy5qcw=="}',0,'${exampleKey}','${serverB64}');
+</script>`} />
+            <div className="p-4 bg-teal-50 border border-teal-100 rounded-xl my-6">
+                <div className="font-bold text-teal-900 mb-1 text-sm flex items-center gap-2"><Zap size={14} fill="currentColor" /> Why this works:</div>
+                <ul className="text-xs text-teal-700 font-medium space-y-1 ml-4 list-disc mt-2">
+                    <li>The script <code>src</code> is Base64 encoded inside the loader.</li>
+                    <li>Attributes like <code>data-id</code> and <code>data-v</code> mask their purpose.</li>
+                    <li>The script is injected dynamically, bypassing static HTML analysis.</li>
+                    <li>Branded console logs are suppressed in production.</li>
+                </ul>
+            </div>
+
+            <h2>Method 2: Generic Filename</h2>
+            <p>
+                Avoid using <code>check402.js</code>. We provide a generic <code>analytics.js</code> endpoint that serves the same script but looks like a standard tracking pixel.
+            </p>
+            <Callout type="info" title="Alternative Filenames">
+                <p>You can also use: <code>payment-guard.js</code>, <code>security-module.js</code>, or <code>session-manager.js</code>.</p>
+            </Callout>
+
+            <h2>Method 3: Domain Masking (Hardest)</h2>
+            <p>
+                To completely hide the Check 402 infrastructure, use a **Reverse Proxy** on your client's server to route requests from <code>/api/security/v1</code> to <code>check402.com/api/check-status</code>.
+            </p>
+
+            <div className="mt-12 pt-8 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div className="text-sm font-bold text-slate-400 uppercase tracking-widest">Next Steps</div>
+                <div className="flex gap-4">
+                    <button onClick={() => setActive("overview")} className="flex items-center gap-2 text-slate-600 hover:text-slate-900 font-bold text-sm bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 transition-all">
+                        Back to Overview <ArrowRight size={16} />
+                    </button>
+                    <button onClick={() => setActive("html")} className="flex items-center gap-2 text-teal-600 hover:text-teal-700 font-bold text-sm bg-teal-50 px-4 py-2 rounded-xl border border-teal-100 transition-all">
+                        Integration Guide <ArrowRight size={16} />
+                    </button>
+                </div>
+            </div>
         </>
     );
 }
