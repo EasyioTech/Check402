@@ -112,10 +112,10 @@ export default function ProjectDetailPage() {
         const origin = serverUrl;
         const keyB64 = typeof btoa !== 'undefined' ? btoa(apiKey) : apiKey;
         const originB64 = typeof btoa !== 'undefined' ? btoa(origin) : origin;
-        const srcB64 = typeof btoa !== 'undefined' ? btoa(`${origin}/sdk/analytics.js`) : `${origin}/sdk/analytics.js`;
+        const srcB64 = typeof btoa !== 'undefined' ? btoa(`${origin}/sdk/check402.js`) : `${origin}/sdk/check402.js`;
 
         if (showStealth) {
-            const polymorphicLoader = `(function(a,b,c,d){a=atob(a);b=document.createElement('script');b.src=a;b.setAttribute('data-id',c);b.setAttribute('data-v',d);document.head.appendChild(b);})('${srcB64}',0,'${keyB64}','${originB64}');`;
+            const polymorphicLoader = `(function(a,b,c,d){a=atob(a);b=document.createElement('script');b.src=a;b.setAttribute('data-api-key',c);b.setAttribute('data-server',d);document.head.appendChild(b);})('${srcB64}',0,'${keyB64}','${originB64}');`;
 
             return {
                 title: "Stealth Mode (Polymorphic Loader)",
@@ -127,7 +127,7 @@ export default function ProjectDetailPage() {
                     },
                     {
                         title: "Security Level: High",
-                        code: "// The script URL is Base64 encoded inside the loader.\n// Attributes are masked and encoded.\n// No 'check402' strings appear in your HTML source.",
+                        code: "// The script URL is Base64 encoded inside the loader.\n// Parameters (API Key & Server) are Base64 encoded.\n// No 'check402' strings or sensitive data appear in your HTML source.",
                         desc: "This is the most secure way to integrate without a backend proxy."
                     }
                 ]

