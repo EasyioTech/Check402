@@ -22,11 +22,26 @@ model User {
   name             String?
   image            String?
   plan             String    @default("DEVELOPER")
+  mode             String    @default("DEVELOPER") // DEVELOPER | DESIGNER
   razorpayOrderId  String?
+  role             String    @default("USER")   // USER | ADMIN
+  isBanned         Boolean   @default(false)
+  
+  // Onboarding
+  onboardingComplete  Boolean  @default(false)
+  persona             String?  // freelancer | agency | enterprise | figma | adobexd | sketch | canva | photoshop | other
+  techStack           String?  // nextjs | vue | html | wordpress | nocode | other
+  painPoint           String?  // active-client | past-burn | exploring | agency-workflow
+  legalAccepted       Boolean  @default(false)
   
   accounts         Account[]
   sessions         Session[]
   projects         Project[]
+  designProjects   DesignProject[]
+  
+  // Plan relation
+  planId           String?
+  planRef          Plan?     @relation(fields: [planId], references: [id])
   
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
@@ -68,15 +83,90 @@ model VerificationToken {
 }
 
 model Project {
-  id          String   @id @default(uuid())
-  name        String
-  client      String
-  description String?
-  framework   String   @default("other")
-  apiKey      String   @unique @default(uuid())
-  status      String   @default("PENDING")
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String      @id @default(uuid())
+  name             String
+  client           String
+  description      String?
+  framework        String      @default("other")
+  apiKey           String      @unique @default(uuid())
+  status           String      @default("PENDING")
+  transitionCount  Int         @default(0)
+  userId           String
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  disputes         Dispute[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+}
+
+model Dispute {
+  id              String   @id @default(uuid())
+  projectId       String
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  clientEmail     String
+  message         String   @db.Text
+  proofReference  String?
+  status          String   @default("open")  // open | resolved | dismissed
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model DesignProject {
+  id           String   @id @default(uuid())
+  name         String
+  clientEmail  String
+  description  String?
+  status       String   @default("DRAFT") // DRAFT | IN_REVIEW | CHANGES_REQUESTED | APPROVED | COMPLETED
+  previewToken String   @unique @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  files        DesignFile[]
+  comments     DesignComment[]
+  approvedAt   DateTime?  // set when status transitions to APPROVED
+  purgedAt     DateTime?  // set by cron after auto-purge runs
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model DesignFile {
+  id              String        @id @default(uuid())
+  designProjectId String
+  designProject   DesignProject @relation(fields: [designProjectId], references: [id], onDelete: Cascade)
+  originalKey     String        // R2 object key for original file
+  previewKey      String?       // R2 object key for watermarked preview (null for video/pdf fallback)
+  fileName        String
+  fileType        String        // image | pdf | video | svg
+  mimeType        String
+  fileSize        Int
+  version         Int           @default(1)
+  createdAt       DateTime      @default(now())
+}
+
+model DesignComment {
+  id              String        @id @default(uuid())
+  designProjectId String
+  designProject   DesignProject @relation(fields: [designProjectId], references: [id], onDelete: Cascade)
+  clientEmail     String
+  message         String        @db.Text
+  isApproval      Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+}
+
+model Plan {
+  id            String   @id @default(uuid())
+  slug          String   @unique           // e.g. "starter", "enterprise"
+  name          String                     // Display name
+  description   String?                    // Tagline
+  price         Int      @default(0)       // Price in cents (0 = free)
+  currency      String   @default("USD")
+  billingType   String   @default("free")  // "free" | "one_time" | "monthly"
+  isDefault     Boolean  @default(false)   // The plan new users get
+  isPopular     Boolean  @default(false)   // "Most Popular" badge
+  isActive      Boolean  @default(true)    // Soft delete / hide
+  sortOrder     Int      @default(0)       // Display order
+  projectLimit  Int      @default(3)       // -1 = unlimited
+  fileLimit     Int      @default(20)      // -1 = unlimited per project
+  features      String   @default("[]")   // JSON array of feature strings
+  users         User[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

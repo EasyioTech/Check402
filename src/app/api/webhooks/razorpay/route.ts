@@ -26,14 +26,26 @@ export async function POST(req: Request) {
     if (json.event === "order.paid") {
         const orderId = json.payload.order.entity.id;
         const userId = json.payload.order.entity.notes.userId;
+        const planId = json.payload.order.entity.notes.planId;
+        const planSlug = json.payload.order.entity.notes.planSlug;
 
         if (userId) {
+            const updateData: Record<string, unknown> = {
+                razorpayOrderId: orderId,
+            };
+
+            if (planId) {
+                updateData.planId = planId;
+                // Also update the legacy plan field for backward compat
+                updateData.plan = planSlug?.toUpperCase() || "ENTERPRISE";
+            } else {
+                // Fallback for old orders without planId
+                updateData.plan = "ENTERPRISE";
+            }
+
             await prisma.user.update({
                 where: { id: userId },
-                data: {
-                    plan: "ENTERPRISE",
-                    razorpayOrderId: orderId,
-                },
+                data: updateData,
             });
         }
     }

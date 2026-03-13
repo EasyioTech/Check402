@@ -36,17 +36,27 @@ export async function POST(request: NextRequest) {
         );
     }
 
-    // Check project creation limits for Developer tier
-    if (session.user.plan === "DEVELOPER" && session.user.role !== "ADMIN") {
-        const projectCount = await prisma.project.count({
-            where: { userId: session.user.id },
+    // Check project creation limits based on user's plan
+    if (session.user.role !== "ADMIN") {
+        const user = await prisma.user.findUnique({
+            where: { id: session.user.id },
+            select: { planId: true },
         });
+        const plan = user?.planId
+            ? await prisma.plan.findUnique({ where: { id: user.planId } })
+            : await prisma.plan.findFirst({ where: { isDefault: true } });
 
-        if (projectCount >= 3) {
-            return NextResponse.json(
-                { error: "Project limit reached. Upgrade to Enterprise for unlimited projects." },
-                { status: 403 }
-            );
+        const limit = plan?.projectLimit ?? 3;
+        if (limit !== -1) {
+            const projectCount = await prisma.project.count({
+                where: { userId: session.user.id },
+            });
+            if (projectCount >= limit) {
+                return NextResponse.json(
+                    { error: `Project limit reached (${limit}). Upgrade your plan for more projects.` },
+                    { status: 403 }
+                );
+            }
         }
     }
 

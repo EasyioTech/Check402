@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession, SessionProvider } from "next-auth/react";
 import { LayoutDashboard, Folder, BookOpen, LogOut, Zap, Plus, Menu, X } from "lucide-react";
 import CreateProjectModal from "@/components/CreateProjectModal";
@@ -110,6 +110,26 @@ export default function DashboardLayout({
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const router = useRouter();
+    const { data: session, status } = useSession();
+
+    // Guard: redirect designers to their own console
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/login");
+        } else if (status === "authenticated" && (session?.user as { mode?: string })?.mode === "DESIGNER") {
+            router.push("/designer");
+        }
+    }, [status, session, router]);
+
+    // Show loading spinner while checking auth
+    if (status === "loading" || (status === "authenticated" && (session?.user as { mode?: string })?.mode === "DESIGNER")) {
+        return (
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+            </div>
+        );
+    }
 
     // Listen for custom trigger from child pages
     useEffect(() => {

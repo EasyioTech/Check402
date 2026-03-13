@@ -13,10 +13,12 @@ export async function GET() {
             );
         }
 
-        const [totalUsers, totalProjects, enterpriseUsers] = await Promise.all([
+        const [totalUsers, totalProjects, enterpriseUsers, disputeCount, defaultedCount] = await Promise.all([
             prisma.user.count(),
             prisma.project.count(),
-            prisma.user.count({ where: { plan: "ENTERPRISE" } })
+            prisma.user.count({ where: { plan: "ENTERPRISE" } }),
+            prisma.dispute.count({ where: { status: "open" } }),
+            prisma.project.count({ where: { status: "DEFAULTED" } }),
         ]);
 
         const estimatedRevenue = enterpriseUsers * 5;
@@ -24,7 +26,9 @@ export async function GET() {
         return NextResponse.json({
             users: totalUsers,
             projects: totalProjects,
-            revenue: estimatedRevenue
+            revenue: estimatedRevenue,
+            disputeCount,
+            defaultedCount,
         });
     } catch (error) {
         console.error("Admin Metrics Error:", error);

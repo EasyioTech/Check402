@@ -1,7 +1,8 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { signIn, getSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import { Github, Lock } from "lucide-react";
 import Link from "next/link";
@@ -32,9 +33,20 @@ function LoginForm() {
             setError("Invalid email or password");
             setLoading(false);
         } else {
-            const session = await getSession();
-            if (session?.user?.role === "ADMIN") {
+            // Force-fetch the fresh session from the server rather than using the
+            // potentially-stale client-side cache that getSession() may return.
+            const res = await fetch("/api/auth/session");
+            const freshSession = await res.json();
+            const role = freshSession?.user?.role;
+            const mode = freshSession?.user?.mode;
+            const onboardingComplete = freshSession?.user?.onboardingComplete;
+
+            if (role === "ADMIN") {
                 router.push("/admin");
+            } else if (!onboardingComplete) {
+                router.push("/onboarding");
+            } else if (mode === "DESIGNER") {
+                router.push("/designer");
             } else {
                 router.push("/dashboard");
             }
@@ -108,57 +120,63 @@ function LoginForm() {
 
 export default function LoginPage() {
     return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 selection:bg-teal-100 selection:text-teal-900 pb-10">
-            <Link href="/" className="fixed top-6 left-6 flex items-center gap-2 group z-50">
-                <img src="/logo.png" alt="check402" className="h-7 w-auto group-hover:opacity-80 transition-opacity" />
-                <span className="text-xl font-extrabold tracking-tight">
-                    <span className="text-teal-500 font-sans">Check</span> <span className="text-slate-900">402</span>
-                </span>
-            </Link>
+        <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-teal-100 selection:text-teal-900">
+            {/* Top bar — always visible, not fixed/overlapping */}
+            <div className="flex items-center px-6 py-5">
+                <Link href="/" className="flex items-center gap-2 group">
+                    <img src="/logo.png" alt="check402" className="h-7 w-auto group-hover:opacity-80 transition-opacity" />
+                    <span className="text-xl font-extrabold tracking-tight">
+                        <span className="text-teal-500">Check</span> <span className="text-slate-900">402</span>
+                    </span>
+                </Link>
+            </div>
 
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden"
-            >
-                <div className="p-8 pb-6 text-center">
-                    <div className="w-12 h-12 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-5 text-teal-500">
-                        <Lock className="w-6 h-6" />
-                    </div>
-                    <h1 className="text-2xl font-extrabold text-slate-900 mb-2">Welcome back</h1>
-                    <p className="text-slate-500 text-sm font-medium">Please enter your details to sign in.</p>
-                </div>
-
-                <div className="px-8 pb-8">
-                    <button
-                        onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
-                        className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-all shadow-sm mb-6"
-                    >
-                        <Github className="w-5 h-5" />
-                        Continue with GitHub
-                    </button>
-
-                    <div className="relative flex items-center py-2 mb-6">
-                        <div className="flex-grow border-t border-slate-100"></div>
-                        <span className="flex-shrink-0 px-4 text-xs font-bold text-slate-300 uppercase tracking-widest">or</span>
-                        <div className="flex-grow border-t border-slate-100"></div>
+            {/* Card — centred in remaining space */}
+            <div className="flex-1 flex items-center justify-center px-4 py-8">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.97, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden"
+                >
+                    <div className="p-6 sm:p-8 pb-5 sm:pb-6 text-center">
+                        <div className="w-12 h-12 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-5 text-teal-500">
+                            <Lock className="w-6 h-6" />
+                        </div>
+                        <h1 className="text-2xl font-extrabold text-slate-900 mb-1.5">Welcome back</h1>
+                        <p className="text-slate-500 text-sm font-medium">Please enter your details to sign in.</p>
                     </div>
 
-                    <Suspense fallback={<div className="h-48 flex items-center justify-center"><div className="w-6 h-6 border-2 border-teal-500/30 border-t-teal-500 rounded-full animate-spin" /></div>}>
-                        <LoginForm />
-                    </Suspense>
+                    <div className="px-6 sm:px-8 pb-6 sm:pb-8">
+                        <button
+                            onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
+                            className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-all shadow-sm mb-5"
+                        >
+                            <Github className="w-5 h-5" />
+                            Continue with GitHub
+                        </button>
 
-                    <div className="mt-8 text-center">
-                        <p className="text-sm font-medium text-slate-500">
-                            Don't have an account?{" "}
-                            <Link href="/signup" className="text-teal-600 hover:text-teal-700 font-bold transition-colors">
-                                Sign up
-                            </Link>
-                        </p>
+                        <div className="relative flex items-center py-2 mb-5">
+                            <div className="flex-grow border-t border-slate-100"></div>
+                            <span className="flex-shrink-0 px-4 text-xs font-bold text-slate-300 uppercase tracking-widest">or</span>
+                            <div className="flex-grow border-t border-slate-100"></div>
+                        </div>
+
+                        <Suspense fallback={<div className="h-48 flex items-center justify-center"><div className="w-6 h-6 border-2 border-teal-500/30 border-t-teal-500 rounded-full animate-spin" /></div>}>
+                            <LoginForm />
+                        </Suspense>
+
+                        <div className="mt-6 text-center">
+                            <p className="text-sm font-medium text-slate-500">
+                                Don&apos;t have an account?{" "}
+                                <Link href="/signup" className="text-teal-600 hover:text-teal-700 font-bold transition-colors">
+                                    Sign up
+                                </Link>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </motion.div>
+                </motion.div>
+            </div>
         </div>
     );
 }

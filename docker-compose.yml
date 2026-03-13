@@ -26,6 +26,12 @@ services:
       - AUTH_GITHUB_SECRET=${AUTH_GITHUB_SECRET}
       - AUTH_SECRET=vS7H2kP9bN5mV3tC8xR1zM4qL6jW0pG4nS2rB1vD9mX8wZ7=
       - AUTH_TRUST_HOST=true
+      - R2_ACCOUNT_ID=${R2_ACCOUNT_ID}
+      - R2_ACCESS_KEY_ID=${R2_ACCESS_KEY_ID}
+      - R2_SECRET_ACCESS_KEY=${R2_SECRET_ACCESS_KEY}
+      - R2_BUCKET_NAME=${R2_BUCKET_NAME}
+      - R2_PUBLIC_URL=${R2_PUBLIC_URL}
+      - CRON_SECRET=${CRON_SECRET}
     command: sh -c "npx prisma db push && npm run db:seed && node server.js"
     depends_on:
       - db

@@ -121,7 +121,17 @@
             '<span style="font-weight:800;letter-spacing:-0.01em;">' +
             '<span style="color:#14b8a6;">Check</span> <span style="color:#0f172a;">402</span>' +
             '</span>' +
-            '</div>';
+            '</div>' +
+            // Dispute link (subtle, for the site owner)
+            '<div style="margin-top:20px;">' +
+            '<a href="' + server + '/dispute?key=' + apiKey + '" ' +
+            'style="font-size:0.75rem;color:#cbd5e1;text-decoration:none;' +
+            'border-bottom:1px dashed #e2e8f0;padding-bottom:1px;' +
+            'transition:color 0.2s;" ' +
+            'onmouseover="this.style.color=\'#94a3b8\'" ' +
+            'onmouseout="this.style.color=\'#cbd5e1\'">' +
+            'Site owner? Dispute this lock.' +
+            '</a></div>';
 
         document.body.appendChild(card);
 

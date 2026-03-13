@@ -103,58 +103,66 @@ export default function ProjectsListPage() {
                         )}
                     </div>
                 ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="border-b border-slate-200 text-slate-500 bg-slate-50/80">
-                                    <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Project</th>
-                                    <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Client</th>
-                                    <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Status</th>
-                                    <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">API Key</th>
-                                    <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Created</th>
-                                    <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-100 bg-white">
-                                {filteredProjects.map((project) => (
-                                    <tr key={project.id} className="hover:bg-slate-50/50 transition-colors group">
-                                        <td className="px-5 py-4 font-bold text-slate-900">{project.name}</td>
-                                        <td className="px-5 py-4 font-medium text-slate-600">{project.client}</td>
-                                        <td className="px-5 py-4">
-                                            <span
-                                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border ${project.status === "COMPLETED"
-                                                    ? "bg-teal-100 text-teal-800 border-teal-200"
-                                                    : project.status === "PENDING"
-                                                        ? "bg-amber-100 text-amber-800 border-amber-200"
-                                                        : "bg-red-100 text-red-800 border-red-200"
-                                                    }`}
-                                            >
-                                                <span className={`w-1.5 h-1.5 rounded-full ${project.status === "COMPLETED" ? "bg-teal-500" : project.status === "PENDING" ? "bg-amber-500" : "bg-red-500"
-                                                    }`} />
-                                                {project.status}
-                                            </span>
-                                        </td>
-                                        <td className="px-5 py-4">
-                                            <code className="text-xs text-slate-600 bg-slate-100 border border-slate-200 px-2 py-1 rounded-md font-mono">
-                                                {project.apiKey.substring(0, 8)}...
-                                            </code>
-                                        </td>
-                                        <td className="px-5 py-4 text-sm font-medium text-slate-500">
-                                            {new Date(project.createdAt).toLocaleDateString()}
-                                        </td>
-                                        <td className="px-5 py-4 text-right">
-                                            <Link
-                                                href={`/dashboard/projects/${project.id}`}
-                                                className="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50 font-bold py-1.5 px-3 rounded-lg text-sm transition-all shadow-sm"
-                                            >
-                                                View
-                                            </Link>
-                                        </td>
+                    <>
+                        {/* Desktop table */}
+                        <div className="hidden sm:block overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-slate-200 text-slate-500 bg-slate-50/80">
+                                        <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Project</th>
+                                        <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Client</th>
+                                        <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Status</th>
+                                        <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">API Key</th>
+                                        <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider">Created</th>
+                                        <th className="px-5 py-4 font-bold text-xs uppercase tracking-wider text-right">Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100 bg-white">
+                                    {filteredProjects.map((project) => (
+                                        <tr key={project.id} className="hover:bg-slate-50/50 transition-colors group">
+                                            <td className="px-5 py-4 font-bold text-slate-900">{project.name}</td>
+                                            <td className="px-5 py-4 font-medium text-slate-600">{project.client}</td>
+                                            <td className="px-5 py-4">
+                                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border ${project.status === "COMPLETED" ? "bg-teal-100 text-teal-800 border-teal-200" : project.status === "PENDING" ? "bg-amber-100 text-amber-800 border-amber-200" : "bg-red-100 text-red-800 border-red-200"}`}>
+                                                    <span className={`w-1.5 h-1.5 rounded-full ${project.status === "COMPLETED" ? "bg-teal-500" : project.status === "PENDING" ? "bg-amber-500" : "bg-red-500"}`} />
+                                                    {project.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                <code className="text-xs text-slate-600 bg-slate-100 border border-slate-200 px-2 py-1 rounded-md font-mono">{project.apiKey.substring(0, 8)}...</code>
+                                            </td>
+                                            <td className="px-5 py-4 text-sm font-medium text-slate-500">{new Date(project.createdAt).toLocaleDateString()}</td>
+                                            <td className="px-5 py-4 text-right">
+                                                <Link href={`/dashboard/projects/${project.id}`} className="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50 font-bold py-1.5 px-3 rounded-lg text-sm transition-all shadow-sm">View</Link>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Mobile cards */}
+                        <div className="sm:hidden divide-y divide-slate-100">
+                            {filteredProjects.map((project) => (
+                                <div key={project.id} className="p-4 bg-white hover:bg-slate-50/50 transition-colors">
+                                    <div className="flex items-start justify-between gap-3 mb-2">
+                                        <div className="min-w-0">
+                                            <div className="font-bold text-slate-900 truncate">{project.name}</div>
+                                            <div className="text-sm text-slate-500 font-medium truncate">{project.client}</div>
+                                        </div>
+                                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold border flex-shrink-0 ${project.status === "COMPLETED" ? "bg-teal-100 text-teal-800 border-teal-200" : project.status === "PENDING" ? "bg-amber-100 text-amber-800 border-amber-200" : "bg-red-100 text-red-800 border-red-200"}`}>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${project.status === "COMPLETED" ? "bg-teal-500" : project.status === "PENDING" ? "bg-amber-500" : "bg-red-500"}`} />
+                                            {project.status}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-between mt-3">
+                                        <code className="text-xs text-slate-500 bg-slate-100 border border-slate-200 px-2 py-1 rounded-md font-mono">{project.apiKey.substring(0, 8)}…</code>
+                                        <Link href={`/dashboard/projects/${project.id}`} className="text-sm font-bold text-teal-600 hover:text-teal-700 transition-colors">View →</Link>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </>
                 )}
             </div>
         </>

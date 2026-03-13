@@ -12,12 +12,14 @@ declare module "next-auth" {
             id: string;
             plan?: string;
             role?: string;
+            mode?: string;
         } & DefaultSession["user"];
     }
 
     interface User {
         plan?: string;
         role?: string;
+        mode?: string;
     }
 }
 
@@ -72,7 +74,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                             email: user.email,
                             name: user.name,
                             plan: user.plan,
+                            mode: (user as unknown as { mode?: string }).mode ?? "DEVELOPER",
                             role: "USER",
+                            onboardingComplete: (user as unknown as { onboardingComplete?: boolean }).onboardingComplete ?? false,
                         };
                     }
                 }
